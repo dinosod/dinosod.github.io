@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="图省事安了个 xp 虚拟机，这样就可以使用跟课堂一样的古老环境了 VC6 相关操作 F7：编译并运行 F5：调试 shift+F5：结束调试 F9：设置断点 F10：step over F11：step in 打开寄存器窗口和内存窗口：view–debug windows registers：寄存器窗口（快捷键ALT+5） Memory：内存窗口（快捷键ALT+6）   查看内存中某一个对象（变量">
+  <meta name="description" content="图省事安了个 xp 虚拟机，这样就可以使用跟课堂一样的古老环境了 VC6 相关操作  F7：编译并运行 F5：调试 shift+F5：结束调试 F9：设置断点 F10：step over F11：step in 打开寄存器窗口和内存窗口：view–debug windows  registers：寄存器窗口（快捷键ALT+5） Memory：内存窗口（快捷键ALT+6）   查看内存中某一个对象（">
 <meta property="og:type" content="article">
 <meta property="og:title" content="滴水逆向--01-23 C语言">
 <meta property="og:url" content="http://example.com/2026/04/14/01-23C%E8%AF%AD%E8%A8%80/index.html">
 <meta property="og:site_name" content="PigaDino&#39; Blog">
-<meta property="og:description" content="图省事安了个 xp 虚拟机，这样就可以使用跟课堂一样的古老环境了 VC6 相关操作 F7：编译并运行 F5：调试 shift+F5：结束调试 F9：设置断点 F10：step over F11：step in 打开寄存器窗口和内存窗口：view–debug windows registers：寄存器窗口（快捷键ALT+5） Memory：内存窗口（快捷键ALT+6）   查看内存中某一个对象（变量">
+<meta property="og:description" content="图省事安了个 xp 虚拟机，这样就可以使用跟课堂一样的古老环境了 VC6 相关操作  F7：编译并运行 F5：调试 shift+F5：结束调试 F9：设置断点 F10：step over F11：step in 打开寄存器窗口和内存窗口：view–debug windows  registers：寄存器窗口（快捷键ALT+5） Memory：内存窗口（快捷键ALT+6）   查看内存中某一个对象（">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-23C%E8%AF%AD%E8%A8%80/%E4%BD%9C%E4%B8%9A.png">
 <meta property="og:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-23C%E8%AF%AD%E8%A8%80/%E4%BD%9C%E4%B8%9A%E4%BB%A3%E7%A0%81.png">
@@ -218,14 +218,16 @@
 
       
         <p>图省事安了个 xp 虚拟机，这样就可以使用跟课堂一样的古老环境了</p>
-<h1 id="VC6-相关操作"><a href="#VC6-相关操作" class="headerlink" title="VC6 相关操作"></a>VC6 相关操作</h1><ul>
+<h1>VC6 相关操作</h1>
+<ul>
 <li>F7：编译并运行</li>
 <li>F5：调试</li>
 <li>shift+F5：结束调试</li>
 <li>F9：设置断点</li>
 <li>F10：step over</li>
 <li>F11：step in</li>
-<li><strong>打开寄存器窗口和内存窗口</strong>：view–debug windows<ul>
+<li><strong>打开寄存器窗口和内存窗口</strong>：view–debug windows
+<ul>
 <li>registers：寄存器窗口（快捷键ALT+5）</li>
 <li>Memory：内存窗口（快捷键ALT+6）</li>
 </ul>
@@ -234,10 +236,11 @@
 <li><strong>查看反汇编</strong>：执行起来后空白处右键–Go To Disassembly</li>
 <li><strong>查看汇编指令的二进制硬编码</strong>：进入反汇编–右键–勾选Code Bytes</li>
 </ul>
-<h1 id="课后作业"><a href="#课后作业" class="headerlink" title="课后作业"></a>课后作业</h1><p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-23C%E8%AF%AD%E8%A8%80/%E4%BD%9C%E4%B8%9A.png"></p>
+<h1>课后作业</h1>
+<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-23C%E8%AF%AD%E8%A8%80/%E4%BD%9C%E4%B8%9A.png" alt=""></p>
 <p>第一题第二题懒得做了，直接看第三题</p>
-<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-23C%E8%AF%AD%E8%A8%80/%E4%BD%9C%E4%B8%9A%E4%BB%A3%E7%A0%81.png"></p>
-<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-23C%E8%AF%AD%E8%A8%80/%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4.png"></p>
+<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-23C%E8%AF%AD%E8%A8%80/%E4%BD%9C%E4%B8%9A%E4%BB%A3%E7%A0%81.png" alt=""></p>
+<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-23C%E8%AF%AD%E8%A8%80/%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4.png" alt=""></p>
 
     </div>
 
@@ -253,12 +256,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2026/04/13/start-from-here/" rel="prev" title="start from here">
-      <i class="fa fa-chevron-left"></i> start from here
+    <a href="/2026/04/14/01-19%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8/" rel="prev" title="滴水逆向--01-19 标志寄存器">
+      <i class="fa fa-chevron-left"></i> 滴水逆向--01-19 标志寄存器
     </a></div>
       <div class="post-nav-item">
-    <a href="/2026/04/14/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/" rel="next" title="滴水逆向--01-22 堆栈图2">
-      滴水逆向--01-22 堆栈图2 <i class="fa fa-chevron-right"></i>
+    <a href="/2026/04/14/01-21%E5%A0%86%E6%A0%88%E5%9B%BE1/" rel="next" title="滴水逆向--01-21 堆栈图1">
+      滴水逆向--01-21 堆栈图1 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -318,7 +321,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#VC6-%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">VC6 相关操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A"><span class="nav-number">2.</span> <span class="nav-text">课后作业</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">VC6 相关操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">课后作业</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -426,6 +429,8 @@
 
 
 
+
+  
 
   
 

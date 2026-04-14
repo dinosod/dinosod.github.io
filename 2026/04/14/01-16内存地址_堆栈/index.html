@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="内存地址反汇编窗口和寄存器窗口数据存储都是从高位到低位，数据区则是由低位到高位  寻址公式一：[立即数]  读取内存的值： 12MOV EAX, DWORD PTR DS:[0x13FFC4]MOV EAX, DWORD PTR DS:[0x13FFC8]  向内存中写入数据： 12MOV DWORD PTR DS:[0x13FFC4], eaxMOV DWORD PTR DS:[0x13FFC8">
+  <meta name="description" content="内存地址 反汇编窗口和寄存器窗口数据存储都是从高位到低位，数据区则是由低位到高位  寻址公式一：[立即数]   读取内存的值： 12MOV EAX, DWORD PTR DS:[0x13FFC4]MOV EAX, DWORD PTR DS:[0x13FFC8]   向内存中写入数据： 12MOV DWORD PTR DS:[0x13FFC4], eaxMOV DWORD PTR DS:[0x13F">
 <meta property="og:type" content="article">
 <meta property="og:title" content="滴水逆向--01-16 内存地址_堆栈">
 <meta property="og:url" content="http://example.com/2026/04/14/01-16%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80_%E5%A0%86%E6%A0%88/index.html">
 <meta property="og:site_name" content="PigaDino&#39; Blog">
-<meta property="og:description" content="内存地址反汇编窗口和寄存器窗口数据存储都是从高位到低位，数据区则是由低位到高位  寻址公式一：[立即数]  读取内存的值： 12MOV EAX, DWORD PTR DS:[0x13FFC4]MOV EAX, DWORD PTR DS:[0x13FFC8]  向内存中写入数据： 12MOV DWORD PTR DS:[0x13FFC4], eaxMOV DWORD PTR DS:[0x13FFC8">
+<meta property="og:description" content="内存地址 反汇编窗口和寄存器窗口数据存储都是从高位到低位，数据区则是由低位到高位  寻址公式一：[立即数]   读取内存的值： 12MOV EAX, DWORD PTR DS:[0x13FFC4]MOV EAX, DWORD PTR DS:[0x13FFC8]   向内存中写入数据： 12MOV DWORD PTR DS:[0x13FFC4], eaxMOV DWORD PTR DS:[0x13F">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-16%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80_%E5%A0%86%E6%A0%88/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%AB%AF%E5%BA%8F%E5%B7%AE%E5%BC%82.png">
 <meta property="og:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-16%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80_%E5%A0%86%E6%A0%88/1_%E6%8C%87%E4%BB%A4.png">
@@ -221,156 +221,191 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="内存地址"><a href="#内存地址" class="headerlink" title="内存地址"></a>内存地址</h1><p>反汇编窗口和寄存器窗口数据存储都是从高位到低位，数据区则是由低位到高位</p>
-<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-16%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80_%E5%A0%86%E6%A0%88/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%AB%AF%E5%BA%8F%E5%B7%AE%E5%BC%82.png"></p>
+        <h1>内存地址</h1>
+<p>反汇编窗口和寄存器窗口数据存储都是从高位到低位，数据区则是由低位到高位</p>
+<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-16%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80_%E5%A0%86%E6%A0%88/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%AB%AF%E5%BA%8F%E5%B7%AE%E5%BC%82.png" alt=""></p>
 <p>寻址公式一：[立即数]</p>
 <ul>
-<li><p>读取内存的值：</p>
+<li>
+<p>读取内存的值：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV EAX, DWORD PTR DS:[0x13FFC4]</span><br><span class="line">MOV EAX, DWORD PTR DS:[0x13FFC8]</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>向内存中写入数据：</p>
+<li>
+<p>向内存中写入数据：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV DWORD PTR DS:[0x13FFC4], eax</span><br><span class="line">MOV DWORD PTR DS:[0x13FFC8], ebx</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>获取内存编号：</p>
+<li>
+<p>获取内存编号：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LEA EAX, DWORD PTR DS:[0x13FFC4]</span><br><span class="line">LEA EAX, DWORD PTR DS:[ESP+8]</span><br></pre></td></tr></table></figure>
-
 <p>LEA 拿的是内存的编号</p>
 </li>
 </ul>
 <p>寻址公式二：[reg] reg代表寄存器，可以是 8 个通用寄存器中的任意一个</p>
 <ul>
-<li><p>读取内存的值：</p>
+<li>
+<p>读取内存的值：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV EAX, 0x13FFD0</span><br><span class="line">MOV EAX, DWORD PTR DS:[ECX]</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>向内存中写入数据：</p>
+<li>
+<p>向内存中写入数据：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV EDX, 0x13FFD8</span><br><span class="line">MOV DWORD PTR DS:[EDX], 0x87654321</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>获取内存编号：</p>
+<li>
+<p>获取内存编号：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV EAX, DWORD PTR DS:[EDX] </span><br><span class="line">LEA EAX, DWORD PTR DS:[EDX]</span><br></pre></td></tr></table></figure>
-
-<p>LEA 执行过后 EAX &#x3D; EDX</p>
+<p>LEA 执行过后 EAX = EDX</p>
 </li>
 </ul>
 <p>寻址公式三：[reg+立即数]</p>
 <ul>
-<li><p>读取内存的值：</p>
+<li>
+<p>读取内存的值：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV ECX, 0x13FFD0</span><br><span class="line">MOV EAX, DWORD OTR DS:[ECX+4]</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>向内存中写入数据：</p>
+<li>
+<p>向内存中写入数据：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV EDX, 0x13FFD8</span><br><span class="line">MOV DWORD PTR DS:[EDX+0xC], 0x87654321</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>获取内存编号：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV EAX, DWORD PTR DS:[EDX+4] </span><br><span class="line">LEA EAX, DWORD PTR DS:[EDX+4]</span><br></pre></td></tr></table></figure></li>
+<li>
+<p>获取内存编号：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV EAX, DWORD PTR DS:[EDX+4] </span><br><span class="line">LEA EAX, DWORD PTR DS:[EDX+4]</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 <p>寻址公式四：[reg+reg*{1,2,4,8}]</p>
 <ul>
-<li><p>读取内存的值：</p>
+<li>
+<p>读取内存的值：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MOV EAX, 0x13FFC4</span><br><span class="line">MOV ECX, 2</span><br><span class="line">MOV EDX, DWORD PTR DS:[EAX+ECX*4]</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>向内存中写入数据：</p>
+<li>
+<p>向内存中写入数据：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MOV EAX, 0x13FFC4</span><br><span class="line">MOV ECX, 2</span><br><span class="line">MOV DWORD PTR DS:[EAX+ECX*4], 0x87654321</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>获取内存编号：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LEA EAX, DWORD PTR DS:[EAX+ECX*4]</span><br></pre></td></tr></table></figure></li>
+<li>
+<p>获取内存编号：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LEA EAX, DWORD PTR DS:[EAX+ECX*4]</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 <p>寻址公式五：[reg+reg*{1,2,4,8}+立即数]</p>
 <ul>
-<li><p>读取内存的值：</p>
+<li>
+<p>读取内存的值：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MOV EAX, 0x13FFC4</span><br><span class="line">MOV ECX, 2</span><br><span class="line">MOV EDX, DWORD PTR DS:[EAX+ECX*4+4]</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>向内存中写入数据：</p>
+<li>
+<p>向内存中写入数据：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MOV EAX, 0x13FFC4</span><br><span class="line">MOV ECX, 2</span><br><span class="line">MOV DWORD PTR DS:[EAX+ECX*4+4], 0x87654321</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>获取内存编号：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LEA EAX, DWORD PTR DS:[EAX+ECX*4+2]</span><br></pre></td></tr></table></figure></li>
+<li>
+<p>获取内存编号：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LEA EAX, DWORD PTR DS:[EAX+ECX*4+2]</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h1 id="堆栈"><a href="#堆栈" class="headerlink" title="堆栈"></a>堆栈</h1><p>堆栈的优点：临时存储大量的数据，便于查找</p>
+<h1>堆栈</h1>
+<p>堆栈的优点：临时存储大量的数据，便于查找</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV EBX, 0x13FFDC    BASE</span><br><span class="line">MOV EDX, 0x13FFDC    TOP</span><br></pre></td></tr></table></figure>
-
 <ol>
-<li><p>压入数据</p>
+<li>
+<p>压入数据</p>
 <ul>
-<li><p>方式一：</p>
+<li>
+<p>方式一：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV DWORD PTR DS:[EDX-4], 0xAAAAAAAA</span><br><span class="line">SUB EDX, 4</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>方式二：</p>
+<li>
+<p>方式二：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SUB EDX, 4</span><br><span class="line">MOV DWORD PTR DS:[EDX], 0xBBBBBBBB</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>方式三：</p>
+<li>
+<p>方式三：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV DWORD PTR DS:[EDX-4], 0xDDDDDDDD</span><br><span class="line">LEA EDX, DWORD PTR DS:[EDX-4]</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>方式四：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LEA EDX, DWORD PTR DS:[EDX-4]</span><br><span class="line">MOV DWORD PTR DS:[EDX], 0xEEEEEEEE</span><br></pre></td></tr></table></figure></li>
+<li>
+<p>方式四：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LEA EDX, DWORD PTR DS:[EDX-4]</span><br><span class="line">MOV DWORD PTR DS:[EDX], 0xEEEEEEEE</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
-<li><p>读取第 N 个数</p>
+<li>
+<p>读取第 N 个数</p>
 <ul>
-<li><p>方式一：通过 BASE 加偏移来读取</p>
+<li>
+<p>方式一：通过 BASE 加偏移来读取</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">读第一个压入的数据：</span><br><span class="line">MOV ESI, DWORD PTR DS:[EBX-4]</span><br><span class="line">读第四个压入的数据：</span><br><span class="line">MOV ESI, DWORD PTR DS:[EBX-0x10]</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>方式二：通过 TOP 加偏移来读取</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">读第二个压入的数据：</span><br><span class="line">MOV EDI, DWORD PTR DS:[EDX+8]</span><br><span class="line">读第三个压入的数据：</span><br><span class="line">MOV EDI, DWORD PTR DS:[EDX+4]</span><br></pre></td></tr></table></figure></li>
+<li>
+<p>方式二：通过 TOP 加偏移来读取</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">读第二个压入的数据：</span><br><span class="line">MOV EDI, DWORD PTR DS:[EDX+8]</span><br><span class="line">读第三个压入的数据：</span><br><span class="line">MOV EDI, DWORD PTR DS:[EDX+4]</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
-<li><p>弹出数据</p>
+<li>
+<p>弹出数据</p>
 <ul>
-<li><p>方式一：</p>
+<li>
+<p>方式一：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV ECX, DWORD PTR DS:[EDX]</span><br><span class="line">LEA EDX, DWORD PTR DS:[EDX+4]</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>方式二：</p>
+<li>
+<p>方式二：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV ESI, DWORD PTR DS:[EDX]</span><br><span class="line">ADD EDX, 4</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>方式三：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LEA EDX, DWORD PTR DS:[EDX+4]</span><br><span class="line">MOV EDI, DWORD PTR DS:[EDX-4]</span><br></pre></td></tr></table></figure></li>
+<li>
+<p>方式三：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LEA EDX, DWORD PTR DS:[EDX+4]</span><br><span class="line">MOV EDI, DWORD PTR DS:[EDX-4]</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
 </ol>
 <p>PUSH 指令：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PUSH r32   执行后栈顶指针+4</span><br><span class="line">PUSH r16   执行后栈顶指针+2</span><br><span class="line">PUSH m16</span><br><span class="line">PUSH m32</span><br><span class="line">PUSH imm8/imm16/imm32</span><br></pre></td></tr></table></figure>
-
 <p>POP 指令：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">POP r32</span><br><span class="line">POP r16</span><br><span class="line">POP m16</span><br><span class="line">POP m32</span><br></pre></td></tr></table></figure>
-
-<p>PUSH&#x2F;POP 一个立即数，永远都是esp +- 4；16 位 r&#x2F;m – esp +- 2； 32 位 +- 4</p>
+<p>PUSH/POP 一个立即数，永远都是esp ± 4；16 位 r/m – esp ± 2； 32 位 ± 4</p>
 <p>PUSH 与 POP 操作没有跟 8 位寄存器的可能</p>
 <p>PUSHAD 指令：把所有通用寄存器压入堆栈</p>
 <p>POPAD 指令：恢复现场，把所有寄存器的值恢复</p>
 <p>保护现场用，在 pushad 后可以随便动寄存器，调试后用 popad 恢复现场</p>
-<h1 id="课后作业"><a href="#课后作业" class="headerlink" title="课后作业"></a>课后作业</h1><ol>
-<li><p>使用 EBX 存储栈底地址，EDX 存储栈顶地址，连续存储 5 个不同的数</p>
-<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-16%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80_%E5%A0%86%E6%A0%88/1_%E6%8C%87%E4%BB%A4.png"></p>
+<h1>课后作业</h1>
+<ol>
+<li>
+<p>使用 EBX 存储栈底地址，EDX 存储栈顶地址，连续存储 5 个不同的数</p>
+<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-16%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80_%E5%A0%86%E6%A0%88/1_%E6%8C%87%E4%BB%A4.png" alt=""></p>
 <p>运行后：</p>
-<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-16%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80_%E5%A0%86%E6%A0%88/1_%E8%BF%90%E8%A1%8C%E5%90%8E.png"></p>
+<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-16%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80_%E5%A0%86%E6%A0%88/1_%E8%BF%90%E8%A1%8C%E5%90%8E.png" alt=""></p>
 </li>
-<li><p>分别使用栈底加偏移、栈顶加偏移的方式读取这 5 个数，并存储到寄存器</p>
-<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-16%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80_%E5%A0%86%E6%A0%88/2_%E6%8C%87%E4%BB%A4.png"></p>
+<li>
+<p>分别使用栈底加偏移、栈顶加偏移的方式读取这 5 个数，并存储到寄存器</p>
+<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-16%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80_%E5%A0%86%E6%A0%88/2_%E6%8C%87%E4%BB%A4.png" alt=""></p>
 <p>两个方式各取一个数，运行后：</p>
-<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-16%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80_%E5%A0%86%E6%A0%88/2_%E8%BF%90%E8%A1%8C%E5%90%8E.png"></p>
+<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-16%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80_%E5%A0%86%E6%A0%88/2_%E8%BF%90%E8%A1%8C%E5%90%8E.png" alt=""></p>
 </li>
-<li><p>弹出这 5 个数，恢复栈顶到原来的位置</p>
-<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-16%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80_%E5%A0%86%E6%A0%88/3_%E6%8C%87%E4%BB%A4.png"></p>
+<li>
+<p>弹出这 5 个数，恢复栈顶到原来的位置</p>
+<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-16%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80_%E5%A0%86%E6%A0%88/3_%E6%8C%87%E4%BB%A4.png" alt=""></p>
 <p>运行后：</p>
-<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-16%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80_%E5%A0%86%E6%A0%88/3_%E8%BF%90%E8%A1%8C%E5%90%8E.png"></p>
+<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-16%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80_%E5%A0%86%E6%A0%88/3_%E8%BF%90%E8%A1%8C%E5%90%8E.png" alt=""></p>
 </li>
-<li><p>使用 2 种方式实现：push ecx</p>
+<li>
+<p>使用 2 种方式实现：push ecx</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV DWORD PTR DS:[ESP-4], ECX</span><br><span class="line">SUB ESP, 4</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV DWORD PTR DS:[ESP-4], ECX</span><br><span class="line">LEA ESP, DWORD PTR DS:[ESP-4]</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>使用 2 种方式实现：pop ecx</p>
+<li>
+<p>使用 2 种方式实现：pop ecx</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV ECX, DWORD PTR DS:[ESP]</span><br><span class="line">ADD ESP, 4</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV ECX, DWORD PTR DS:[ESP]</span><br><span class="line">LEA ESP, DWORD PTR DA:[ESP+4]</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>&#x3D;&#x3D;使用 2 种方式实现：push esp&#x3D;&#x3D;</p>
+<li>
+<p>==使用 2 种方式实现：push esp==</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV DWORD PTR DS:[ESP-4], ESP</span><br><span class="line">SUB ESP, 4</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV DWORD PTR DS:[ESP-4], ESP</span><br><span class="line">LEA ESP, DWORD PTR DS:[ESP-4]</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>&#x3D;&#x3D;使用 2 种方式实现：pop esp&#x3D;&#x3D;</p>
+<li>
+<p>==使用 2 种方式实现：pop esp==</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MOV ESP, DWORD PTR DS:[ESP]</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LEA ESP, DWORD PTR DS:[ESP+4]</span><br><span class="line">MOV ESP, DWORD PTR DS:[ESP-4]</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LEA ESP, DWORD PTR DS:[ESP+4]</span><br><span class="line">MOV ESP, DWORD PTR DS:[ESP-4]</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 
     </div>
@@ -387,8 +422,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2026/04/14/01-13%E8%BF%9B%E5%88%B62/" rel="prev" title="滴水逆向--01-13 进制2">
-      <i class="fa fa-chevron-left"></i> 滴水逆向--01-13 进制2
+    <a href="/2026/04/14/01-20JCC/" rel="prev" title="滴水逆向--01-20 JCC">
+      <i class="fa fa-chevron-left"></i> 滴水逆向--01-20 JCC
     </a></div>
       <div class="post-nav-item">
     <a href="/2026/04/14/01-15%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8_%E5%86%85%E5%AD%98%E8%AF%BB%E5%86%99/" rel="next" title="滴水逆向--01-15 通用寄存器_内存读写">
@@ -452,7 +487,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80"><span class="nav-number">1.</span> <span class="nav-text">内存地址</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A0%86%E6%A0%88"><span class="nav-number">2.</span> <span class="nav-text">堆栈</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A"><span class="nav-number">3.</span> <span class="nav-text">课后作业</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">内存地址</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">堆栈</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">课后作业</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -560,6 +595,8 @@
 
 
 
+
+  
 
   
 
