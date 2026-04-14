@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="数据宽度看成一个圆，当分正负的时候就从中间劈开，左边负数，右边正数，对应平时所讲的正数第一位为 0、负数第一位为 1，且左边最下面为最大的负数     &#x3D;&#x3D;$\textcolor{red}{几个重要的计量单位：}$&#x3D;&#x3D; BYTE         字节      8bit WORD      字          16bit     2字节 DWORD   双">
+<meta property="og:type" content="article">
+<meta property="og:title" content="滴水逆向--01-14 数据宽度_逻辑运算">
+<meta property="og:url" content="http://example.com/2026/04/14/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/index.html">
+<meta property="og:site_name" content="PigaDino&#39; Blog">
+<meta property="og:description" content="数据宽度看成一个圆，当分正负的时候就从中间劈开，左边负数，右边正数，对应平时所讲的正数第一位为 0、负数第一位为 1，且左边最下面为最大的负数     &#x3D;&#x3D;$\textcolor{red}{几个重要的计量单位：}$&#x3D;&#x3D; BYTE         字节      8bit WORD      字          16bit     2字节 DWORD   双">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/4%E4%BD%8D%E5%AE%BD%E5%BA%A6.png">
+<meta property="og:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/8%E4%BD%8D%E5%AE%BD%E5%BA%A6.png">
+<meta property="og:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/16%E4%BD%8D%E5%AE%BD%E5%BA%A6.png">
+<meta property="og:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/32%E4%BD%8D%E5%AE%BD%E5%BA%A6.png">
+<meta property="og:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/%E6%88%96.png">
+<meta property="og:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/%E4%B8%8E.png">
+<meta property="og:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/%E5%BC%82%E6%88%96.png">
+<meta property="og:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/%E9%9D%9E.png">
+<meta property="og:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/2+3.png">
+<meta property="og:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/%E8%AE%A1%E7%AE%97%E7%AC%ACn%E4%BD%8D.png">
+<meta property="og:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E5%8A%A0%E5%AF%86.png">
+<meta property="article:published_time" content="2026-04-14T14:44:00.000Z">
+<meta property="article:modified_time" content="2026-04-14T13:51:16.257Z">
+<meta property="article:author" content="noone">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/4%E4%BD%8D%E5%AE%BD%E5%BA%A6.png">
+
+<link rel="canonical" href="http://example.com/2026/04/14/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>滴水逆向--01-14 数据宽度_逻辑运算 | PigaDino' Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">PigaDino' Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">随便记点什么</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/04/14/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="noone">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PigaDino' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          滴水逆向--01-14 数据宽度_逻辑运算
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-04-14 22:44:00 / 修改时间：21:51:16" itemprop="dateCreated datePublished" datetime="2026-04-14T22:44:00+08:00">2026-04-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91%E4%B8%89%E6%9C%9F/" itemprop="url" rel="index"><span itemprop="name">滴水逆向三期</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="数据宽度"><a href="#数据宽度" class="headerlink" title="数据宽度"></a>数据宽度</h1><p>看成一个圆，当分正负的时候就从中间劈开，左边负数，右边正数，对应平时所讲的正数第一位为 0、负数第一位为 1，且左边最下面为最大的负数</p>
+<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/4%E4%BD%8D%E5%AE%BD%E5%BA%A6.png"></p>
+<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/8%E4%BD%8D%E5%AE%BD%E5%BA%A6.png"></p>
+<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/16%E4%BD%8D%E5%AE%BD%E5%BA%A6.png"></p>
+<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/32%E4%BD%8D%E5%AE%BD%E5%BA%A6.png"></p>
+<p>&#x3D;&#x3D;<strong>$\textcolor{red}{几个重要的计量单位：}$</strong>&#x3D;&#x3D;</p>
+<p>BYTE         字节      8bit</p>
+<p>WORD      字          16bit     2字节</p>
+<p>DWORD   双字       32bit    4字节</p>
+<h1 id="逻辑运算"><a href="#逻辑运算" class="headerlink" title="逻辑运算"></a>逻辑运算</h1><p>二进制的逻辑运算：</p>
+<ol>
+<li><p>逻辑运算：或（or |）只要有一个为 1 就是 1</p>
+<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/%E6%88%96.png"></p>
+<p>逻辑运算：与（and &amp;）两个都是 1 才是 1</p>
+<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/%E4%B8%8E.png"></p>
+<p>逻辑运算：异或（xor ^）不一样为 1</p>
+<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/%E5%BC%82%E6%88%96.png"></p>
+<p>逻辑运算：非（not !）1 是 0，0 是 1</p>
+<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/%E9%9D%9E.png"></p>
+<p>逻辑运算的具体应用：</p>
+<ol>
+<li><p>CPU 是如何计算 2+3&#x3D;?</p>
+<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/2+3.png"></p>
+</li>
+<li><p>如果想获取某个值的第 N 位的值是多少？</p>
+<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/%E8%AE%A1%E7%AE%97%E7%AC%ACn%E4%BD%8D.png"></p>
+</li>
+<li><p>最简单的加密算法</p>
+<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E5%8A%A0%E5%AF%86.png"></p>
+</li>
+</ol>
+<p>课后作业：</p>
+<ol>
+<li><p>八进制数 2-5 在计算器中的结果是：1777777777777777777775，为什么？</p>
+<p>因为八进制是将 3 个二进制位合为 1 位，而计算机的字长（16&#x2F;32&#x2F;64位）通常是 2 的整数次幂，无法被 3 整除。当前计算机 64 位，64&#x2F;3，商 21 余 1，最左边会剩余 1 位，也就是 1，如果计算机为 32 位，答案就会是 37777777775，16 位就会是 177775</p>
+</li>
+<li><p>使用异或对 87AD6 进行加密后再解密，加解密密钥：5</p>
+<p>87AD6：1000 0111 1010 1101 0110</p>
+<p>5：0101</p>
+<p>1000 xor 0101 &#x3D; 1101</p>
+<p>0111 xor 0101 &#x3D; 0010</p>
+<p>1010 xor 0101 &#x3D; 1111</p>
+<p>1101 xor 0101 &#x3D; 1000</p>
+<p>0110 xor 0101 &#x3D; 0011</p>
+<p>加密过后：D2F83</p>
+<p>1101 xor 0101 &#x3D; 1000</p>
+<p>0010 xor 0101 &#x3D; 0111</p>
+<p>1111 xor 0101 &#x3D; 1010</p>
+<p>1000 xor 0101 &#x3D; 1101</p>
+<p>0011 xor 0101 &#x3D; 0110</p>
+<p>解密过后：87AD6</p>
+</li>
+<li><p>只用逻辑运算计算 2-3&#x3D;？（涉及内容：逻辑运算、移位、数据宽度）</p>
+<p>2-3 等同于 2+(-3)</p>
+<p>2: 0010     -3: 1101</p>
+<p>Step1. 0010 xor 1101 &#x3D; 1111</p>
+<p>Step2. 0010 and 1101 &#x3D; 0000</p>
+<p>Step3. 0000 &lt;&lt; 1 &#x3D; 0000</p>
+<p>左移结果为 0，说明计算结束，答案为 Step1 所的结果 1111</p>
+<p>1111 &#x3D; F，即 -1</p>
+</li>
+</ol>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/04/14/01-15%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8_%E5%86%85%E5%AD%98%E8%AF%BB%E5%86%99/" rel="prev" title="滴水逆向--01-15 通用寄存器_内存读写">
+      <i class="fa fa-chevron-left"></i> 滴水逆向--01-15 通用寄存器_内存读写
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2026/04/14/01-12%E8%BF%9B%E5%88%B61/" rel="next" title="滴水逆向--01-12 进制1">
+      滴水逆向--01-12 进制1 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6"><span class="nav-number">1.</span> <span class="nav-text">数据宽度</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97"><span class="nav-number">2.</span> <span class="nav-text">逻辑运算</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="noone"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">noone</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/dinosod" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;dinosod" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">noone</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

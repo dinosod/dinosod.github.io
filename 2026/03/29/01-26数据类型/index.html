@@ -20,15 +20,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
+  <meta name="description" content="C语言是怎么变成汇编的引言：定义一个函数，什么都不写什么都不做的时候，编译器和链接器就已经自动生成了一个框架  如果不想要它自动生成的这个，就可以使用裸函数  什么是裸函数 12void __declspec(naked) Function()  			&#123;...&#125;			  裸函数调用时与普通函数无异，都是生成一个 call 指令，也就是会先把下一条指令地址压入堆栈，将EIP的值">
+<meta property="og:type" content="article">
 <meta property="og:title" content="PigaDino&#39; Blog">
-<meta property="og:url" content="http://example.com/archives/2026/04/index.html">
+<meta property="og:url" content="http://example.com/2026/03/29/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/index.html">
 <meta property="og:site_name" content="PigaDino&#39; Blog">
+<meta property="og:description" content="C语言是怎么变成汇编的引言：定义一个函数，什么都不写什么都不做的时候，编译器和链接器就已经自动生成了一个框架  如果不想要它自动生成的这个，就可以使用裸函数  什么是裸函数 12void __declspec(naked) Function()  			&#123;...&#125;			  裸函数调用时与普通函数无异，都是生成一个 call 指令，也就是会先把下一条指令地址压入堆栈，将EIP的值">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E8%87%AA%E5%8A%A8%E6%A1%86%E6%9E%B6.png">
+<meta property="article:published_time" content="2026-03-29T02:40:06.521Z">
+<meta property="article:modified_time" content="2026-03-29T03:29:54.723Z">
 <meta property="article:author" content="noone">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E8%87%AA%E5%8A%A8%E6%A1%86%E6%9E%B6.png">
 
-<link rel="canonical" href="http://example.com/archives/2026/04/">
+<link rel="canonical" href="http://example.com/2026/03/29/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
 
 
 <script id="page-configurations">
@@ -36,12 +42,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | PigaDino' Blog</title>
+  <title> | PigaDino' Blog</title>
   
 
 
@@ -155,234 +161,91 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 12 篇日志。 继续努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/03/29/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="noone">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PigaDino' Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-03-29 10:40:06 / 修改时间：11:29:54" itemprop="dateCreated datePublished" datetime="2026-03-29T10:40:06+08:00">2026-03-29</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2026</span>
-    </div>
+        <h1 id="C语言是怎么变成汇编的"><a href="#C语言是怎么变成汇编的" class="headerlink" title="C语言是怎么变成汇编的"></a>C语言是怎么变成汇编的</h1><p>引言：定义一个函数，什么都不写什么都不做的时候，编译器和链接器就已经自动生成了一个框架</p>
+<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E8%87%AA%E5%8A%A8%E6%A1%86%E6%9E%B6.png"></p>
+<p>如果不想要它自动生成的这个，就可以使用裸函数</p>
+<ol>
+<li><p>什么是裸函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">void __declspec(naked) Function()  			</span><br><span class="line">&#123;...&#125;			</span><br></pre></td></tr></table></figure>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<p>裸函数调用时与普通函数无异，都是生成一个 call 指令，也就是会先把下一条指令地址压入堆栈，将EIP的值改为 call 后面跟的地址，然后再通过一个 jmp 中转跳到 jmp 后的地址开始执行。</p>
+<p>但是由于是裸函数什么都没做，跳转到函数执行空间之后会发现里面全部都是 int 3，程序运行到这里没有返回没法结束，就会出错，解决方式也很简单，加个 retn 就可以了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">void __declspec(naked) Function()  			</span><br><span class="line">&#123;</span><br><span class="line">	__asm</span><br><span class="line">	&#123;</span><br><span class="line">			ret</span><br><span class="line">	&#125;</span><br><span class="line">&#125;			</span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2026-04-14T22:44:00+08:00"
-              content="2026-04-14">
-          04-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2026/04/14/01-12%E8%BF%9B%E5%88%B61/" itemprop="url">
-            <span itemprop="name">滴水逆向--01-12 进制1</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2026-04-14T22:44:00+08:00"
-              content="2026-04-14">
-          04-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2026/04/14/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/" itemprop="url">
-            <span itemprop="name">滴水逆向--01-14 数据宽度_逻辑运算</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2026-04-14T22:44:00+08:00"
-              content="2026-04-14">
-          04-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2026/04/14/01-15%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8_%E5%86%85%E5%AD%98%E8%AF%BB%E5%86%99/" itemprop="url">
-            <span itemprop="name">滴水逆向--01-15 通用寄存器_内存读写</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2026-04-14T22:44:00+08:00"
-              content="2026-04-14">
-          04-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2026/04/14/01-16%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80_%E5%A0%86%E6%A0%88/" itemprop="url">
-            <span itemprop="name">滴水逆向--01-16 内存地址_堆栈</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2026-04-14T22:44:00+08:00"
-              content="2026-04-14">
-          04-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2026/04/14/01-13%E8%BF%9B%E5%88%B62/" itemprop="url">
-            <span itemprop="name">滴水逆向--01-13 进制2</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2026-04-14T22:44:00+08:00"
-              content="2026-04-14">
-          04-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2026/04/14/01-19%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8/" itemprop="url">
-            <span itemprop="name">滴水逆向--01-19 标志寄存器</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2026-04-14T22:44:00+08:00"
-              content="2026-04-14">
-          04-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2026/04/14/01-21%E5%A0%86%E6%A0%88%E5%9B%BE1/" itemprop="url">
-            <span itemprop="name">滴水逆向--01-21 堆栈图1</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2026-04-14T22:44:00+08:00"
-              content="2026-04-14">
-          04-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2026/04/14/01-20JCC/" itemprop="url">
-            <span itemprop="name">滴水逆向--01-20 JCC</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2026-04-14T22:44:00+08:00"
-              content="2026-04-14">
-          04-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2026/04/14/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/" itemprop="url">
-            <span itemprop="name">滴水逆向--01-22 堆栈图2</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2026-04-14T22:44:00+08:00"
-              content="2026-04-14">
-          04-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2026/04/14/01-23C%E8%AF%AD%E8%A8%80/" itemprop="url">
-            <span itemprop="name">滴水逆向--01-23 C语言</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
+<p>自定义函数需要注意的三点：<strong>参数、局部变量、返回值</strong></p>
+</li>
+</ol>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2026/04/13/start-from-here/" rel="next" title="start from here">
+      start from here <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
   
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2026/04/page/2/">2</a><a class="extend next" rel="next" href="/archives/2026/04/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
+  
+  
 
 
 
@@ -434,6 +297,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C%E8%AF%AD%E8%A8%80%E6%98%AF%E6%80%8E%E4%B9%88%E5%8F%98%E6%88%90%E6%B1%87%E7%BC%96%E7%9A%84"><span class="nav-number">1.</span> <span class="nav-text">C语言是怎么变成汇编的</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
