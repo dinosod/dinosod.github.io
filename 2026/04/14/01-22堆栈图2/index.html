@@ -27,20 +27,20 @@
 <meta property="og:site_name" content="PigaDino&#39; Blog">
 <meta property="og:description" content="函数 计算机的函数，是一个&#x3D;&#x3D;固定的一个程序段&#x3D;&#x3D;，或称其为一个&#x3D;&#x3D;子程序&#x3D;&#x3D;，它可以实现&#x3D;&#x3D;固定运算功能&#x3D;&#x3D;的同时还带有一个&#x3D;&#x3D;入口&#x3D;&#x3D;和一个&#x3D;&#x3D;出口&#x3D;&#x3D;，所谓的入口，就是函数所带的各个&#x3D;&#x3D;参数&#x3D;&#x3D;，我们可以通过这个入口，把函数的参数值代入子程序，供计算机处理，所谓出口，就是指函数的计算结果，也称为&#x3D;&#x3D;返回值&#x3D;&#x3D;，在计算机求得之后，由此口带回给它的调用程序。   汇编中的函数：    函数的入口">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/%E6%B1%87%E7%BC%96%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0.png">
-<meta property="og:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/%E5%87%BD%E6%95%B0%E7%9A%84%E5%85%A5%E5%8F%A3.png">
-<meta property="og:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/%E5%87%BD%E6%95%B0%E7%9A%84%E5%87%BA%E5%8F%A3.png">
-<meta property="og:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/windows%E5%A0%86%E6%A0%88.png">
-<meta property="og:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/hw-1.png">
-<meta property="og:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/hw-2.png">
-<meta property="og:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/hw-3.png">
-<meta property="og:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/hw-4.png">
-<meta property="og:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/hw-5.png">
+<meta property="og:image" content="http://example.com/images/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/%E6%B1%87%E7%BC%96%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0.png">
+<meta property="og:image" content="http://example.com/images/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/%E5%87%BD%E6%95%B0%E7%9A%84%E5%85%A5%E5%8F%A3.png">
+<meta property="og:image" content="http://example.com/images/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/%E5%87%BD%E6%95%B0%E7%9A%84%E5%87%BA%E5%8F%A3.png">
+<meta property="og:image" content="http://example.com/images/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/windows%E5%A0%86%E6%A0%88.png">
+<meta property="og:image" content="http://example.com/images/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/hw-1.png">
+<meta property="og:image" content="http://example.com/images/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/hw-2.png">
+<meta property="og:image" content="http://example.com/images/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/hw-3.png">
+<meta property="og:image" content="http://example.com/images/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/hw-4.png">
+<meta property="og:image" content="http://example.com/images/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/hw-5.png">
 <meta property="article:published_time" content="2026-04-14T14:44:00.000Z">
-<meta property="article:modified_time" content="2026-04-14T13:53:51.128Z">
+<meta property="article:modified_time" content="2026-04-14T14:26:02.372Z">
 <meta property="article:author" content="noone">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/%E6%B1%87%E7%BC%96%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0.png">
+<meta name="twitter:image" content="http://example.com/images/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/%E6%B1%87%E7%BC%96%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0.png">
 
 <link rel="canonical" href="http://example.com/2026/04/14/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/">
 
@@ -200,7 +200,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2026-04-14 22:44:00 / 修改时间：21:53:51" itemprop="dateCreated datePublished" datetime="2026-04-14T22:44:00+08:00">2026-04-14</time>
+              <time title="创建时间：2026-04-14 22:44:00 / 修改时间：22:26:02" itemprop="dateCreated datePublished" datetime="2026-04-14T22:44:00+08:00">2026-04-14</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -228,15 +228,15 @@
 <ul>
 <li>
 <p>汇编中的函数：</p>
-<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/%E6%B1%87%E7%BC%96%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0.png" alt=""></p>
+<p><img src="/images/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/%E6%B1%87%E7%BC%96%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0.png" alt=""></p>
 </li>
 <li>
 <p>函数的入口：</p>
-<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/%E5%87%BD%E6%95%B0%E7%9A%84%E5%85%A5%E5%8F%A3.png" alt=""></p>
+<p><img src="/images/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/%E5%87%BD%E6%95%B0%E7%9A%84%E5%85%A5%E5%8F%A3.png" alt=""></p>
 </li>
 <li>
 <p>函数的出口：</p>
-<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/%E5%87%BD%E6%95%B0%E7%9A%84%E5%87%BA%E5%8F%A3.png" alt=""></p>
+<p><img src="/images/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/%E5%87%BD%E6%95%B0%E7%9A%84%E5%87%BA%E5%8F%A3.png" alt=""></p>
 </li>
 </ul>
 <p>函数需要的参数不一定必须放内存里传进去，也可以通过寄存器，同理，函数的返回值也不是一定要在寄存器里传回来，存到内存里也可以。当然函数也不一定一定需要参数和返回值。</p>
@@ -244,19 +244,19 @@
 <ul>
 <li>
 <p>Windows 堆栈：</p>
-<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/windows%E5%A0%86%E6%A0%88.png" alt=""></p>
+<p><img src="/images/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/windows%E5%A0%86%E6%A0%88.png" alt=""></p>
 <p>==函数调用前后的堆栈一定要平衡==</p>
 </li>
 </ul>
 <h1>课后作业</h1>
 <p>练习：嵌套函数堆栈图（Stack.exe 从 40D518 画到 40D52A，标黄部分）</p>
-<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/hw-1.png" alt=""></p>
+<p><img src="/images/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/hw-1.png" alt=""></p>
 <p>call 的各个函数：</p>
-<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/hw-2.png" alt=""></p>
-<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/hw-3.png" alt=""></p>
-<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/hw-4.png" alt=""></p>
+<p><img src="/images/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/hw-2.png" alt=""></p>
+<p><img src="/images/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/hw-3.png" alt=""></p>
+<p><img src="/images/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/hw-4.png" alt=""></p>
 <p>堆栈图：</p>
-<p><img src="/Users/pigadino/%E9%80%86%E5%90%91/%E6%BB%B4%E6%B0%B4%E5%BF%83%E6%B3%95%E4%BF%AE%E7%82%BC/%E5%9B%BE%E7%89%87/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/hw-5.png" alt=""></p>
+<p><img src="/images/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/hw-5.png" alt=""></p>
 
     </div>
 
@@ -272,12 +272,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2026/04/14/01-21%E5%A0%86%E6%A0%88%E5%9B%BE1/" rel="prev" title="滴水逆向--01-21 堆栈图1">
-      <i class="fa fa-chevron-left"></i> 滴水逆向--01-21 堆栈图1
+    <a href="/2026/04/14/01-23C%E8%AF%AD%E8%A8%80/" rel="prev" title="滴水逆向--01-23 C语言">
+      <i class="fa fa-chevron-left"></i> 滴水逆向--01-23 C语言
     </a></div>
       <div class="post-nav-item">
-    <a href="/2026/04/14/01-20JCC/" rel="next" title="滴水逆向--01-20 JCC">
-      滴水逆向--01-20 JCC <i class="fa fa-chevron-right"></i>
+    <a href="/2026/04/14/01-21%E5%A0%86%E6%A0%88%E5%9B%BE1/" rel="next" title="滴水逆向--01-21 堆栈图1">
+      滴水逆向--01-21 堆栈图1 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -353,7 +353,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -449,6 +449,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
