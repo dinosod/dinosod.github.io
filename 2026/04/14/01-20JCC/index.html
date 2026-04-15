@@ -1,164 +1,96 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>滴水逆向--01-20 JCC | PigaDino' Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="https://unpkg.com/normalize.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/pure-min.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="https://unpkg.com/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="https://unpkg.com/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="https://unpkg.com/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="https://unpkg.com/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">滴水逆向--01-20 JCC</h1><a id="logo" href="/.">PigaDino' Blog</a><p class="description">随便记点什么</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">滴水逆向--01-20 JCC</h1><div class="post-meta">2026-04-14<span> | </span><span class="category"><a href="/categories/%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91%E4%B8%89%E6%9C%9F/">滴水逆向三期</a></span></div><div class="post-content"><h4 id="JMP">JMP</h4>
-<p>只修改 EIP，其余什么也不做</p>
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>滴水逆向--01-20 JCC | PigaDino' Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="https://unpkg.com/normalize.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/pure-min.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="https://unpkg.com/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="https://unpkg.com/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="https://unpkg.com/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="https://unpkg.com/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">滴水逆向--01-20 JCC</h1><a id="logo" href="/.">PigaDino' Blog</a><p class="description">随便记点什么</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">滴水逆向--01-20 JCC</h1><div class="post-meta">2026-04-14<span> | </span><span class="category"><a href="/categories/%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91%E4%B8%89%E6%9C%9F/">滴水逆向三期</a></span></div><div class="post-content"><h4 id="JMP"><a href="#JMP" class="headerlink" title="JMP"></a>JMP</h4><p>只修改 EIP，其余什么也不做</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MOV EIP, 寄存器/立即数     ;简写为：JMP 寄存器/立即数</span><br></pre></td></tr></table></figure>
-<h4 id="CALL">CALL</h4>
-<p>修改 EIP，ESP 也会 -4，把下一句要执行的地址压栈</p>
+<h4 id="CALL"><a href="#CALL" class="headerlink" title="CALL"></a>CALL</h4><p>修改 EIP，ESP 也会 -4，把下一句要执行的地址压栈</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PUSH 地址B</span><br><span class="line">MOV EIP, 地址A/寄存器      ;简写为：CALL 地址A/寄存器</span><br></pre></td></tr></table></figure>
-<h4 id="RETN">RETN</h4>
-<p>修改 EIP，ESP + 4，弹出栈顶返回地址赋给 EIP。类似于 POP EIP</p>
+<h4 id="RETN"><a href="#RETN" class="headerlink" title="RETN"></a>RETN</h4><p>修改 EIP，ESP + 4，弹出栈顶返回地址赋给 EIP。类似于 POP EIP</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LEA ESP, [ESP+4]</span><br><span class="line">MOV EIP, [ESP-4]         ;简写为：RET</span><br></pre></td></tr></table></figure>
-<h4 id="比较指令（CMP、TEST）">比较指令（CMP、TEST）</h4>
-<ol>
-<li>
-<p>CMP 指令</p>
+<h4 id="比较指令（CMP、TEST）"><a href="#比较指令（CMP、TEST）" class="headerlink" title="比较指令（CMP、TEST）"></a>比较指令（CMP、TEST）</h4><ol>
+<li><p>CMP 指令</p>
 <p>指令格式：CMP R/M, R/M/IMM（不能同时为内存）</p>
 <p>相当于 SUB 指令，但是并不像 SUB 一样保存结果，只改标志寄存器的值，根据相减的结果来改变零标志位</p>
 <p>常用于比较两个数是否相等，相等时 ZF=1，==一般看 ZF 和 SF 位比较多==</p>
 <ul>
 <li>无符号数比较</li>
 </ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">CMP结果</th>
-<th style="text-align:center">ZF</th>
-<th style="text-align:center">CF</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">目的操作数 &lt; 源操作数</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-</tr>
-<tr>
-<td style="text-align:left">目的操作数 &gt; 源操作数</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-</tr>
-<tr>
-<td style="text-align:left">目的操作数 = 源操作数</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-</tr>
-</tbody>
-</table>
+<p>| CMP结果               |  ZF  |  CF  |<br>| :—————————— | :—: | :—: |<br>| 目的操作数 &lt; 源操作数 |  0   |  1   |<br>| 目的操作数 &gt; 源操作数 |  0   |  0   |<br>| 目的操作数 = 源操作数 |  1   |  0   |</p>
 <ul>
 <li>有符号数比较</li>
 </ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">CMP结果</th>
-<th style="text-align:center">标志位</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">目的操作数 &lt; 源操作数</td>
-<td style="text-align:center">SF ≠ OF</td>
-</tr>
-<tr>
-<td style="text-align:left">目的操作数 &gt; 源操作数</td>
-<td style="text-align:center">SF = OF</td>
-</tr>
-<tr>
-<td style="text-align:left">目的操作数 = 源操作数</td>
-<td style="text-align:center">ZF = 1</td>
-</tr>
-</tbody>
-</table>
+<p>| CMP结果               | 标志位  |<br>| :—————————— | :——-: |<br>| 目的操作数 &lt; 源操作数 | SF ≠ OF |<br>| 目的操作数 &gt; 源操作数 | SF = OF |<br>| 目的操作数 = 源操作数 | ZF = 1  |</p>
 </li>
-<li>
-<p>TEST 指令</p>
+<li><p>TEST 指令</p>
 <p>指令格式：TEST R/M, R/M/IMM</p>
 <p>在一定程序上与 CMP 指令是类似的，两个数值进行与操作，也是不保存结果，但是影响标志位 ZF</p>
 <p>常见用法：判断某个寄存器是不是等于 0，只有是 0 是自己跟自己 and 才会是 0</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TEST EAX, EAX   ;用来判断eax中值是否为0，如果是0，则ZF置为1</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h4 id="JCC-指令">JCC 指令</h4>
-<ol>
-<li>
-<p>JE、JZ</p>
+<h4 id="JCC-指令"><a href="#JCC-指令" class="headerlink" title="JCC 指令"></a>JCC 指令</h4><ol>
+<li><p>JE、JZ</p>
 <p>JE：Jump Equal 相等时跳转</p>
 <p>JZ：Jump Zero 结果为 0 时跳转</p>
 <p>根据 ZF 位判断是否跳转，<strong>ZF=1</strong> 则跳转，否则不跳。也就是结果<strong>相等</strong>就跳转</p>
 </li>
-<li>
-<p>JNE、JNZ</p>
+<li><p>JNE、JNZ</p>
 <p>遇上面相反，<strong>ZF=0</strong> 时跳转，也就是结果不相等的时候就跳</p>
 </li>
-<li>
-<p>JS</p>
+<li><p>JS</p>
 <p>JS：Jump if Sign</p>
 <p>根据 SF 位判断是否跳转，<strong>SF=1</strong> 则跳转，否则不跳。也就是结果为<strong>负数</strong>就跳转</p>
 </li>
-<li>
-<p>JNS</p>
+<li><p>JNS</p>
 <p>与上面相反，<strong>SF=0</strong> 时跳转，也就是结果为非负数则跳转</p>
 </li>
-<li>
-<p>JP、JPE</p>
+<li><p>JP、JPE</p>
 <p>JP：Jump if Parity</p>
 <p>JPE：Jump if Parity Even</p>
 <p>根据 PF 位判断是否跳转，<strong>PF=1</strong> 则跳转，也就是如果结果低8位中1的个数为<strong>偶数</strong>则跳转</p>
 </li>
-<li>
-<p>JNP、JPO</p>
+<li><p>JNP、JPO</p>
 <p>JPO：Jump if Parity Odd</p>
 <p>与上面相反，<strong>PF=0</strong> 则跳转，也就是如果结果低8位中1的个数为<strong>奇数</strong>则跳转</p>
 </li>
-<li>
-<p>JO</p>
+<li><p>JO</p>
 <p>JO：Jump if Overflow</p>
 <p>根据 OF 位判断是否跳转，<strong>OF=1</strong> 则跳转，也就是如果结果<strong>溢出</strong>了就跳</p>
 </li>
-<li>
-<p>JNO</p>
+<li><p>JNO</p>
 <p>与上面相反，<strong>OF=0</strong> 则跳，也就是<strong>没溢出</strong>就跳</p>
 </li>
-<li>
-<p>JB、JNAE</p>
+<li><p>JB、JNAE</p>
 <p>JB：Jump if Below</p>
 <p>JNAE：Jump if Not Above or Equal</p>
 <p>前面的数跟后面的数比较<strong>小于</strong>则跳转（无符号数），即 <strong>CF=1</strong> 跳转</p>
 </li>
-<li>
-<p>JNB、JAE</p>
+<li><p>JNB、JAE</p>
 <p>与上面相反，<strong>大于等于</strong>则跳转（无符号数），即 <strong>CF=0</strong> 跳转</p>
 </li>
-<li>
-<p>JBE、JNA</p>
+<li><p>JBE、JNA</p>
 <p>JBE：Jump if Below or Equal</p>
 <p>JNA：Jump if Not Above</p>
 <p><strong>小于等于</strong>则跳转（无符号数），即 <strong>CF=1</strong> 或者 <strong>ZF=1</strong> 跳转</p>
 </li>
-<li>
-<p>JNBE、JA</p>
+<li><p>JNBE、JA</p>
 <p>与上面相反，<strong>大于</strong>则跳转（无符号数），即 <strong>CF=0</strong> 并且 <strong>ZF=0</strong> 跳转</p>
 </li>
-<li>
-<p>JL、JNGE</p>
+<li><p>JL、JNGE</p>
 <p>JL：Jump if Less</p>
 <p>JNGE：Jump if Not Greater or Equal</p>
 <p><strong>小于</strong>则跳转（有符号数），即 <strong>SF≠OF</strong> 跳转（注意这里的小于是指我们平时所说的有符号的数的大小，不是看计算机中存的二进制数的大小）</p>
 </li>
-<li>
-<p>JNL、JGE</p>
+<li><p>JNL、JGE</p>
 <p>与上面相反，<strong>大于等于</strong>则跳转（有符号数），即 <strong>SF=OF</strong> 跳转</p>
 </li>
-<li>
-<p>JLE、JNG</p>
+<li><p>JLE、JNG</p>
 <p>JLE：Jump if Less or Equal</p>
 <p>JNG：Jump if Not Greater</p>
 <p><strong>小于等于</strong>则跳转（有符号数），即 <strong>SF≠OF 或者 ZF=1</strong></p>
 </li>
-<li>
-<p>JNLE、JG</p>
+<li><p>JNLE、JG</p>
 <p>与上面相反，<strong>大于</strong>则跳转（有符号数），即 <strong>SF=OF 并且 ZF=0</strong></p>
 </li>
 </ol>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -267,113 +199,61 @@
 </tr>
 </tbody>
 </table>
-<h4 id="课后作业">课后作业</h4>
-<ol>
-<li>
-<p>CALL 执行时堆栈有什么变化？EIP 有变化吗？</p>
+</div>
+<h4 id="课后作业"><a href="#课后作业" class="headerlink" title="课后作业"></a>课后作业</h4><ol>
+<li><p>CALL 执行时堆栈有什么变化？EIP 有变化吗？</p>
 <p>ESP-4，将 call 指令的下一条指令的地址压栈。EIP 变为 call 指令中的那个地址</p>
 </li>
-<li>
-<p>RET 执行时堆栈有什么变化？EIP 有变化吗？</p>
+<li><p>RET 执行时堆栈有什么变化？EIP 有变化吗？</p>
 <p>栈顶 +4，栈顶弹出赋值给 EIP</p>
 </li>
-<li>
-<p>使用汇编指令修改标志寄存器中的某个位的值，实现 JCC 的十六种跳转</p>
+<li><p>使用汇编指令修改标志寄存器中的某个位的值，实现 JCC 的十六种跳转</p>
 <blockquote>
 <p>不允许在 OD 中通过双击的形式修改标志寄存器</p>
 <p>要通过汇编指令的执行去影响标志位，能用 CMP 和 TEST 实现的优先考虑</p>
 </blockquote>
 <p>第一组：ZF 标志位（相等/零）</p>
 <ul>
-<li>
-<p>JE, JZ（ZF=1）</p>
+<li><p>JE, JZ（ZF=1）</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">  MOV EAX, 0</span><br><span class="line">  TEST EAX, EAX</span><br><span class="line">  JE ...</span><br><span class="line"></span><br><span class="line">- JNE, JNZ（ZF=0）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>MOV EAX, 0x10<br>
-MOV ECX, 0x20<br>
-CMP EAX, ECX<br>
-JNE …</p>
+<p>MOV EAX, 0x10<br>MOV ECX, 0x20<br>CMP EAX, ECX<br>JNE …</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">第二组：SF 标志位（符号/正负）</span><br><span class="line"></span><br><span class="line">- JS（SF=1）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>MOV EAX, 0x80000000<br>
-TEST EAX, EAX<br>
-JS …</p>
+<p>MOV EAX, 0x80000000<br>TEST EAX, EAX<br>JS …</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- JNS（SF=0）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>MOV EAX, 0x7FFFFFFF<br>
-TEST EAX, EAX<br>
-JNS …</p>
+<p>MOV EAX, 0x7FFFFFFF<br>TEST EAX, EAX<br>JNS …</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">第三组：PF 标志位（奇偶性）</span><br><span class="line"></span><br><span class="line">- JP, JPE（PF=1）</span><br><span class="line"></span><br><span class="line">  需注意：PF 只看最后八位</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>MOV AL, 0x9F<br>
-TEST AL, AL<br>
-JP …</p>
+<p>MOV AL, 0x9F<br>TEST AL, AL<br>JP …</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- JNP, JPO（PF=0）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>MOV AL, 0x7F<br>
-TEST AL, AL<br>
-JNP …</p>
+<p>MOV AL, 0x7F<br>TEST AL, AL<br>JNP …</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">第四组：OF 标志位（溢出）</span><br><span class="line"></span><br><span class="line">- JO（OF=1）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>MOV EAX, 0x80000000   ;负数<br>
-MOV ECX, 0x00000001   ;正数<br>
-CMP EAX, ECX          ;负-正=正 0x7FFFFFFF<br>
-JO …</p>
+<p>MOV EAX, 0x80000000   ;负数<br>MOV ECX, 0x00000001   ;正数<br>CMP EAX, ECX          ;负-正=正 0x7FFFFFFF<br>JO …</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- JNO（OF=0）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>MOV EAX, 0x00000001<br>
-MOV ECX, 0x7FFFFFFF<br>
-CMP EAX, ECX          ;正+负 永远不会有溢出<br>
-JNO …</p>
+<p>MOV EAX, 0x00000001<br>MOV ECX, 0x7FFFFFFF<br>CMP EAX, ECX          ;正+负 永远不会有溢出<br>JNO …</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">第五组：无符号数比较 (CF, ZF)</span><br><span class="line"></span><br><span class="line">- JB, JNAE（CF=1）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>MOV EAX, 0x00000001   ;小数<br>
-MOV ECX, 0xFFFFFFFF   ;大数(无符号看)<br>
-CMP EAX, ECX          ;小-大 要借位<br>
-JB …</p>
+<p>MOV EAX, 0x00000001   ;小数<br>MOV ECX, 0xFFFFFFFF   ;大数(无符号看)<br>CMP EAX, ECX          ;小-大 要借位<br>JB …</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- JNB, JAE（CF=0）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>MOV EAX, 0xFFFFFFFF<br>
-MOV ECX, 0x00000001<br>
-CMP EAX, ECX<br>
-JNB …</p>
+<p>MOV EAX, 0xFFFFFFFF<br>MOV ECX, 0x00000001<br>CMP EAX, ECX<br>JNB …</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- JBE, JNA（CF=1 or ZF=1）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>MOV EAX,0x11111111<br>
-MOV ECX,0x22222222<br>
-CMP EAX, ECX<br>
-JBE …</p>
+<p>MOV EAX,0x11111111<br>MOV ECX,0x22222222<br>CMP EAX, ECX<br>JBE …</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-<p>MOV EAX, 0x88888888<br>
-MOV ECX, 0x88888888<br>
-CMP EAX, ECX<br>
-JBE …</p>
+<p>MOV EAX, 0x88888888<br>MOV ECX, 0x88888888<br>CMP EAX, ECX<br>JBE …</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- JNBE, JA（CF=0 and ZF=0）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>MOV EAX, 0x20000000<br>
-MOV ECX, 0x10000000<br>
-CMP EAX, ECX<br>
-JA …</p>
+<p>MOV EAX, 0x20000000<br>MOV ECX, 0x10000000<br>CMP EAX, ECX<br>JA …</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">第六组：有符号数比较 (SF, OF, ZF)</span><br><span class="line"></span><br><span class="line">- JL, JNGE（OF≠SF）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>MOV EAX, 0x11111111<br>
-MOV ECX, 0x77777777<br>
-CMP EAX, ECX          ;小正数-大正数=负数，SF=1，但是不溢出，OF=0<br>
-JL …</p>
+<p>MOV EAX, 0x11111111<br>MOV ECX, 0x77777777<br>CMP EAX, ECX          ;小正数-大正数=负数，SF=1，但是不溢出，OF=0<br>JL …</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- JNL, JGE（OF=SF）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>MOV EAX, 0x77777777<br>
-MOV ECX, 0x11111111<br>
-CMP EAX, ECX<br>
-JNL …</p>
+<p>MOV EAX, 0x77777777<br>MOV ECX, 0x11111111<br>CMP EAX, ECX<br>JNL …</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- JLE, JNG（OF≠SF or ZF=1）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>MOV EAX, 0x11111111<br>
-MOV ECX, 0x77777777<br>
-CMP EAX, ECX<br>
-JLE …</p>
+<p>MOV EAX, 0x11111111<br>MOV ECX, 0x77777777<br>CMP EAX, ECX<br>JLE …</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-<p>MOV EAX, 0<br>
-TEST EAX, EAX<br>
-JLE …</p>
+<p>MOV EAX, 0<br>TEST EAX, EAX<br>JLE …</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- JNLE, JG（OF=SF and ZF=0）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>MOV EAX, 0x00000001<br>
-MOV ECX, 0xFFFFFFFF<br>
-CMP EAX, ECX<br>
-JG …</p>
-<pre><code>
-</code></pre>
+<p>MOV EAX, 0x00000001<br>MOV ECX, 0xFFFFFFFF<br>CMP EAX, ECX<br>JG …<br>```</p>
 </li>
 </ul>
 </li>
 </ol>
-</div><div class="tags"></div><div class="post-nav"><a class="pre" href="/2026/04/14/01-21%E5%A0%86%E6%A0%88%E5%9B%BE1/">滴水逆向--01-21 堆栈图1</a><a class="next" href="/2026/04/14/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/">滴水逆向--01-22 堆栈图2</a></div><div class="nofancybox" id="minivaline-container"></div><script src="https://unpkg.com/minivaline/dist/MiniValine.min.js"></script><script>new MiniValine({
+</div><div class="tags"></div><div class="post-nav"><a class="pre" href="/2026/04/14/01-21%E5%A0%86%E6%A0%88%E5%9B%BE1/">滴水逆向--01-21 堆栈图1</a><a class="next" href="/2026/04/14/01-19%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8/">滴水逆向--01-19 标志寄存器</a></div><div class="nofancybox" id="minivaline-container"></div><script src="https://unpkg.com/minivaline/dist/MiniValine.min.js"></script><script>new MiniValine({
   el: '#minivaline-container',
   appId: '',
   appKey: '',
@@ -383,7 +263,7 @@ JG …</p>
   math: true,
   md: true
 })
-</script></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://example.com"/></form></div><div class="widget"><div class="author-info"><a class="info-avatar" href="/about/" title="关于"><img class="nofancybox" src="/images/avatar.jpg"/></a><p>怕上火，喝王老吉</p><a class="info-icon" href="https://blog.pigadino.com/" title="Twitter" target="_blank" style="margin-inline:5px"> <i class="fa fa-twitter-square" style="margin-inline:5px"></i></a><a class="info-icon" href="mailto:1282040096@qq.com" title="Email" target="_blank" style="margin-inline:5px"> <i class="fa fa-envelope-square" style="margin-inline:5px"></i></a><a class="info-icon" href="https://github.com/dinosod" title="Github" target="_blank" style="margin-inline:5px"> <i class="fa fa-github-square" style="margin-inline:5px"></i></a><a class="info-icon" href="/atom.xml" title="RSS" target="_blank" style="margin-inline:5px"> <i class="fa fa-rss-square" style="margin-inline:5px"></i></a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91%E4%B8%89%E6%9C%9F/">滴水逆向三期</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/">滴水逆向--01-14 数据宽度_逻辑运算</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-21%E5%A0%86%E6%A0%88%E5%9B%BE1/">滴水逆向--01-21 堆栈图1</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-20JCC/">滴水逆向--01-20 JCC</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/">滴水逆向--01-22 堆栈图2</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-19%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8/">滴水逆向--01-19 标志寄存器</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-16%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80_%E5%A0%86%E6%A0%88/">滴水逆向--01-16 内存地址_堆栈</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-15%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8_%E5%86%85%E5%AD%98%E8%AF%BB%E5%86%99/">滴水逆向--01-15 通用寄存器_内存读写</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-13%E8%BF%9B%E5%88%B62/">滴水逆向--01-13 进制2</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-23C%E8%AF%AD%E8%A8%80/">滴水逆向--01-23 C语言</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-12%E8%BF%9B%E5%88%B61/">滴水逆向--01-12 进制1</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://www.example1.com/" title="广告位招租" target="_blank">广告位招租</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2026 <a href="/." rel="nofollow">PigaDino' Blog.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="https://unpkg.com/@fancyapps/fancybox/dist/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0" async></script><link rel="stylesheet" type="text/css" href="https://unpkg.com/@fancyapps/fancybox/dist/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js?v=1.0.0" successtext="复制成功！"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css?v=1.0.0"><script type="text/x-mathjax-config">MathJax.Hub.Config({
+</script></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://example.com"/></form></div><div class="widget"><div class="author-info"><a class="info-avatar" href="/about/" title="关于"><img class="nofancybox" src="/images/avatar.jpg"/></a><p>怕上火，喝王老吉</p><a class="info-icon" href="https://blog.pigadino.com/" title="Twitter" target="_blank" style="margin-inline:5px"> <i class="fa fa-twitter-square" style="margin-inline:5px"></i></a><a class="info-icon" href="mailto:1282040096@qq.com" title="Email" target="_blank" style="margin-inline:5px"> <i class="fa fa-envelope-square" style="margin-inline:5px"></i></a><a class="info-icon" href="https://github.com/dinosod" title="Github" target="_blank" style="margin-inline:5px"> <i class="fa fa-github-square" style="margin-inline:5px"></i></a><a class="info-icon" href="/atom.xml" title="RSS" target="_blank" style="margin-inline:5px"> <i class="fa fa-rss-square" style="margin-inline:5px"></i></a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91%E4%B8%89%E6%9C%9F/">滴水逆向三期</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-23C%E8%AF%AD%E8%A8%80/">滴水逆向--01-23 C语言</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/">滴水逆向--01-22 堆栈图2</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-21%E5%A0%86%E6%A0%88%E5%9B%BE1/">滴水逆向--01-21 堆栈图1</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-20JCC/">滴水逆向--01-20 JCC</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-19%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8/">滴水逆向--01-19 标志寄存器</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-16%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80_%E5%A0%86%E6%A0%88/">滴水逆向--01-16 内存地址_堆栈</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-15%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8_%E5%86%85%E5%AD%98%E8%AF%BB%E5%86%99/">滴水逆向--01-15 通用寄存器_内存读写</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/">滴水逆向--01-14 数据宽度_逻辑运算</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-13%E8%BF%9B%E5%88%B62/">滴水逆向--01-13 进制2</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-12%E8%BF%9B%E5%88%B61/">滴水逆向--01-12 进制1</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://www.example1.com/" title="广告位招租" target="_blank">广告位招租</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2026 <a href="/." rel="nofollow">PigaDino' Blog.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="https://unpkg.com/@fancyapps/fancybox/dist/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0" async></script><link rel="stylesheet" type="text/css" href="https://unpkg.com/@fancyapps/fancybox/dist/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js?v=1.0.0" successtext="复制成功！"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css?v=1.0.0"><script type="text/x-mathjax-config">MathJax.Hub.Config({
   tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
   });
 </script><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>
