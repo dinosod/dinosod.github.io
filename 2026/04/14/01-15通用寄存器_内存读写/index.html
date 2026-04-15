@@ -143,8 +143,8 @@
 <ol>
 <li>源操作数可以是立即数、通用寄存器、段寄存器、内存单元</li>
 <li>目标操作数可以是通用寄存器、段寄存器、内存单元</li>
-<li>操作数的宽度必须一样</li>
-<li>源操作数和目标操作数不能同时为内存单元</li>
+<li>操作数的<strong>宽度必须一样</strong></li>
+<li><strong>源操作数和目标操作数不能同时为内存单元</strong></li>
 </ol>
 <p>ADD 指令：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ADD AL, imm8</span><br><span class="line">ADD AX, imm16</span><br><span class="line">ADD EAX, imm32</span><br><span class="line">ADD r/m8, imm8</span><br><span class="line">ADD r/m16, imm16</span><br><span class="line">ADD r/m32, imm32</span><br><span class="line">ADD r/m16, imm8</span><br><span class="line">ADD r/m32, imm8</span><br><span class="line">ADD r/m8, r8</span><br><span class="line">ADD r/m16, r16</span><br><span class="line">ADD r/m32, r32</span><br><span class="line">ADD r8, r/m8</span><br><span class="line">ADD r16, r/m16</span><br><span class="line">ADD r32, r/m32</span><br></pre></td></tr></table></figure>
@@ -187,7 +187,7 @@
 </li>
 <li><p>从指定内存中写入/读取数据</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov dword ptr ds:[0x0012FF34], 0x12345678</span><br><span class="line">mov eax, dword ptr ds:[0x0012FF34]</span><br></pre></td></tr></table></figure>
-<p>dword：要读/写多少（涉及到内存读写的，一定要指定宽度），byte = 1 字节，word = 2 字节，dword = 4 字节</p>
+<p>dword：要读/写多少（<strong>涉及到内存读写的，一定要指定宽度</strong>），byte = 1 字节，word = 2 字节，dword = 4 字节</p>
 <p>ptr：point，代表后面是一个指针（不是值，是地址）</p>
 <p>ds：段寄存器</p>
 <p>0x0012FF34：内存编号，必须 32 位，前面的 0 可以省略</p>
