@@ -1,35 +1,47 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>滴水逆向--01-19 标志寄存器 | PigaDino' Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="https://unpkg.com/normalize.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/pure-min.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="https://unpkg.com/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="https://unpkg.com/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="https://unpkg.com/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="https://unpkg.com/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">滴水逆向--01-19 标志寄存器</h1><a id="logo" href="/.">PigaDino' Blog</a><p class="description">随便记点什么</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">滴水逆向--01-19 标志寄存器</h1><div class="post-meta">2026-04-14<span> | </span><span class="category"><a href="/categories/%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91%E4%B8%89%E6%9C%9F/">滴水逆向三期</a></span></div><div class="post-content"><h1 id="标志寄存器"><a href="#标志寄存器" class="headerlink" title="标志寄存器"></a>标志寄存器</h1><p><img src="/images/01-19标志寄存器/标志寄存器.png" alt=""></p>
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>滴水逆向--01-19 标志寄存器 | PigaDino' Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="https://unpkg.com/normalize.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/pure-min.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="https://unpkg.com/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="https://unpkg.com/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="https://unpkg.com/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="https://unpkg.com/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">滴水逆向--01-19 标志寄存器</h1><a id="logo" href="/.">PigaDino' Blog</a><p class="description">随便记点什么</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">滴水逆向--01-19 标志寄存器</h1><div class="post-meta">2026-04-14<span> | </span><span class="category"><a href="/categories/%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91%E4%B8%89%E6%9C%9F/">滴水逆向三期</a></span></div><div class="post-content"><h1>标志寄存器</h1>
+<p><img src="/images/01-19%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8/%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8.png" alt=""></p>
 <p>在哪看？OD 已经把 32 位拆分好列出来了，C就是表示CF，P就表示PF…最下面那个 EFL 就是拆开前的样子，需要自己拆的时候就把这个 16 进制数展开成 32 位二进制就行</p>
-<p><img src="/images/01-19标志寄存器/elf.png" alt=""></p>
+<p><img src="/images/01-19%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8/elf.png" alt=""></p>
 <p>记住这几个寄存器的位置和名称：</p>
 <ol>
-<li><p>进位标志 CF（Carry Flag）：如果运算结果的<strong>最高位</strong>产生了一个进位或借位，那么，其值为 1，否则 0</p>
+<li>
+<p>进位标志 CF（Carry Flag）：如果运算结果的<strong>最高位</strong>产生了一个进位或借位，那么，其值为 1，否则 0</p>
 <ul>
-<li>研究进位时，要先确定数字的宽度，知道了宽度才能确定最高位 </li>
+<li>研究进位时，要先确定数字的宽度，知道了宽度才能确定最高位</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MOV AL, 0xEF     MOV AL, 0xFE     MOV 指令不影响标志寄存器</span><br><span class="line">ADD AL, 2        ADD AL, 2</span><br><span class="line">CF=0             CF=1</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>奇偶标识为 PF（Parity Flag）：用于反映运算结果中 1的个数的奇偶性，“1”的个数为偶数，PF 的值为1，否则 0，<strong>只看低八位，不管数据宽度是多少</strong></p>
+<li>
+<p>奇偶标识为 PF（Parity Flag）：用于反映运算结果中 1的个数的奇偶性，“1”的个数为偶数，PF 的值为1，否则 0，<strong>只看低八位，不管数据宽度是多少</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MOV AL, 3</span><br><span class="line">ADD AL, 3   PF=0</span><br><span class="line">ADD AL, 2   PF=1</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>辅助进位标志 AF（Auxiliary Carry Falg）：</p>
+<li>
+<p>辅助进位标志 AF（Auxiliary Carry Falg）：</p>
 <p>在发生下列情况时，辅助进位标志 AF 的值被置为 1，否则 0（加醋的部分发生进位，就会是 1）：</p>
 <p>（1）在字操作时，发生低字节向高字节进位或借位时 FFFF<strong>F</strong>FFF</p>
 <p>（2）在字节操作时，发生低 4 位向高 4 位进位或借位时 FF<strong>F</strong>F</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV EAX, 0x55EEFFFF       MOV AX, 0x5EFE       MOV AL, 4E</span><br><span class="line">ADD EAX, 2                ADD AX, 2            ADD AL, 2</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>零标志 ZF（Zero Flag）：零标志 ZF 用来反映运算结果是否为 0，是 0 则被置为 1，否则 0。用于判读啊结果是否为 0</p>
+<li>
+<p>零标志 ZF（Zero Flag）：零标志 ZF 用来反映运算结果是否为 0，是 0 则被置为 1，否则 0。用于判读啊结果是否为 0</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">XOR EAX, EAX</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>符号标志 SF（Sign Flag）：用来反映运算结果的符号位，与运算结果的最高位相同</p>
+<li>
+<p>符号标志 SF（Sign Flag）：用来反映运算结果的符号位，与运算结果的最高位相同</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV AL, 7F</span><br><span class="line">ADD AL, 2</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>溢出标志 OF（Overflow Flag）：用于反映有符号数加减运算所得结果是否溢出。如果运算结果超过当前运算位数所能表示的范围，则置 1，否则 0</p>
+<li>
+<p>溢出标志 OF（Overflow Flag）：用于反映有符号数加减运算所得结果是否溢出。如果运算结果超过当前运算位数所能表示的范围，则置 1，否则 0</p>
 <p>最高位进位（CF）与溢出（OF）的区别：</p>
 <ul>
-<li>进位标志表示<strong>无符号</strong>数运算结果是否超出范围</li>
-<li>溢出标志表示<strong>有符号</strong>数运算结果是否超出范围</li>
-<li><p>溢出主要是给有符号数运算用的，在有符号的运算中，有如下的规律：</p>
+<li>
+<p>进位标志表示<strong>无符号</strong>数运算结果是否超出范围</p>
+</li>
+<li>
+<p>溢出标志表示<strong>有符号</strong>数运算结果是否超出范围</p>
+</li>
+<li>
+<p>溢出主要是给有符号数运算用的，在有符号的运算中，有如下的规律：</p>
 <ul>
 <li>正 + 正 = 正 如果结果是负数，则说明有溢出</li>
 <li>负 + 负 = 负 如果结果是正数，则说明有溢出</li>
@@ -37,18 +49,23 @@
 </ul>
 <p><strong>做有符号数运算关注 OF，做无符号数运算关注 CF</strong></p>
 </li>
-<li><p>小练习：</p>
+<li>
+<p>小练习：</p>
 <ul>
-<li><p>无符号、有符号都不溢出</p>
+<li>
+<p>无符号、有符号都不溢出</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV AL, 8</span><br><span class="line">ADD AL, 8</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>无符号溢出，有符号不溢出</p>
+<li>
+<p>无符号溢出，有符号不溢出</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV AL, 0xFF</span><br><span class="line">ADD AL, 2</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>无符号不溢出，有符号溢出</p>
+<li>
+<p>无符号不溢出，有符号溢出</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV AL, 0x7F</span><br><span class="line">ADD AL, 2</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>无符号、有符号都溢出</p>
+<li>
+<p>无符号、有符号都溢出</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV AL, 0xFE</span><br><span class="line">ADD AL, 80</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
@@ -56,23 +73,28 @@
 </ul>
 </li>
 </ol>
-<h1 id="拓展：几个指令"><a href="#拓展：几个指令" class="headerlink" title="拓展：几个指令"></a>拓展：几个指令</h1><ul>
-<li><p>ADC 指令：带进位加法（不仅仅计算两个数相加，还把 CF 位也一起加上了）</p>
+<h1>拓展：几个指令</h1>
+<ul>
+<li>
+<p>ADC 指令：带进位加法（不仅仅计算两个数相加，还把 CF 位也一起加上了）</p>
 <p>格式：ADC R/M, R/M/IMM    两边不能同时为内存，宽度要一样</p>
-<p><img src="/images/01-19标志寄存器/ADC-1.png" alt=""></p>
-<p><img src="/images/01-19标志寄存器/ADC-2.png" alt=""></p>
+<p><img src="/images/01-19%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8/ADC-1.png" alt=""></p>
+<p><img src="/images/01-19%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8/ADC-2.png" alt=""></p>
 </li>
-<li><p>SBB 指令：带借位减法（同加法）</p>
+<li>
+<p>SBB 指令：带借位减法（同加法）</p>
 <p>格式：SBB R/M, R/M/IMM    两边不能同时为内存，宽度要一样</p>
 </li>
-<li><p>XCHG 指令：交换数据</p>
+<li>
+<p>XCHG 指令：交换数据</p>
 <p>格式：XCHG R/M, R/M（没有立即数，得是俩容器）    两边不能同时为内存，宽度要一样</p>
 </li>
-<li><p>MOVS 指令：移动数据，内存-内存</p>
+<li>
+<p>MOVS 指令：移动数据，内存-内存</p>
 <p>BYTE/WORD/DWORD</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MOVSB: MOVS BYTE PTR ES:[EDI], BYTE PTR DS:[ESI]</span><br><span class="line">MOVSW: MOVS WORD PTR ES:[EDI], WORD PTR DS:[ESI]</span><br><span class="line">MOVSD: MOVS DWORD PTR ES:[EDI], DWORD PTR DS:[ESI]</span><br></pre></td></tr></table></figure>
-<p><img src="/images/01-19标志寄存器/MOVS-1.png" alt=""></p>
-<p><img src="/images/01-19标志寄存器/MOVS-2.png" alt=""></p>
+<p><img src="/images/01-19%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8/MOVS-1.png" alt=""></p>
+<p><img src="/images/01-19%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8/MOVS-2.png" alt=""></p>
 <p>注意：</p>
 <ul>
 <li>将后面 ESI 中存的内存地址编号中的值（按照给定的数据宽度来取），存入到前面的 EDI 中存的内存地址编号中</li>
@@ -80,38 +102,50 @@
 <li>如果遇到 MOVS 指令，很可能是字符串的复制</li>
 </ul>
 </li>
-<li><p>STOS 指令：将 AL/AX/EAX 的值存储到 [EDI] 指定的内存单元</p>
+<li>
+<p>STOS 指令：将 AL/AX/EAX 的值存储到 [EDI] 指定的内存单元</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">STOS BYTE PTR ES:[EDI]    简写为 STOSB</span><br><span class="line">STOS WORD PTR ES:[EDI]    简写为 STOSW</span><br><span class="line">STOS DWORD PTR ES:[EDI]   简写为 STOSD</span><br></pre></td></tr></table></figure>
 <p>AL/AX/EAX 取决于给的数据宽度是 byte、word 还是 dword，EDI 依据 DF 标志位为 0 or 1 以及数据宽度，加 1/2/4 或者减 1/2/4</p>
-<p><img src="/images/01-19标志寄存器/STOS.png" alt=""></p>
+<p><img src="/images/01-19%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8/STOS.png" alt=""></p>
 </li>
-<li><p>REP 指令：按计数寄存器（ECX）中指定的次数重复执行字符串执行</p>
+<li>
+<p>REP 指令：按计数寄存器（ECX）中指定的次数重复执行字符串执行</p>
 <p>每执行一次，ECX的值会减1，最终减为0结束执</p>
 </li>
 </ul>
-<h1 id="课后作业"><a href="#课后作业" class="headerlink" title="课后作业"></a>课后作业</h1><ol>
-<li><p>熟练记住 CF/PF/AF/ZF/SF/OF 的位置</p>
+<h1>课后作业</h1>
+<ol>
+<li>
+<p>熟练记住 CF/PF/AF/ZF/SF/OF 的位置</p>
 </li>
-<li><p>写汇编指令只影响 CF 位的值（不能影响其他标志位！）</p>
+<li>
+<p>写汇编指令只影响 CF 位的值（不能影响其他标志位！）</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">等价条件：</span><br><span class="line">1-CF (Carry Flag)：最高位发生进位</span><br><span class="line">0-ZF (Zero Flag)：结果不能为 0</span><br><span class="line">0-SF (Sign Flag)：结果的最高位不能为 1</span><br><span class="line">0-OF (Overflow Flag)：不能发生有符号溢出</span><br><span class="line">0-AF (Auxiliary Flag)：低半部分不能发生进位</span><br><span class="line">0-PF (Parity Flag)：低 8 位中 1 的个数要是奇数</span><br><span class="line">汇编指令：</span><br><span class="line">mov al, 0xF0</span><br><span class="line">add al, 11</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>写汇编指令只影响 PF 位的值</p>
+<li>
+<p>写汇编指令只影响 PF 位的值</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">等价条件：</span><br><span class="line">0-CF (Carry Flag)：最高位不能发生进位</span><br><span class="line">0-ZF (Zero Flag)：结果不能为 0</span><br><span class="line">0-SF (Sign Flag)：结果的最高位不能为 1</span><br><span class="line">0-OF (Overflow Flag)：不能发生有符号溢出</span><br><span class="line">0-AF (Auxiliary Flag)：低半部分不能发生进位</span><br><span class="line">1-PF (Parity Flag)：低 8 位中 1 的个数要是偶数</span><br><span class="line">汇编指令：</span><br><span class="line">mov ax, 0x6AAA</span><br><span class="line">add ax, 0x02</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>写汇编指令只影响 AF 位的值</p>
+<li>
+<p>写汇编指令只影响 AF 位的值</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">等价条件：</span><br><span class="line">0-CF (Carry Flag)：最高位不能发生进位</span><br><span class="line">0-ZF (Zero Flag)：结果不能为 0</span><br><span class="line">0-SF (Sign Flag)：结果的最高位不能为 1</span><br><span class="line">0-OF (Overflow Flag)：不能发生有符号溢出</span><br><span class="line">1-AF (Auxiliary Flag)：低半部分发生进位</span><br><span class="line">0-PF (Parity Flag)：低 8 位中 1 的个数要是奇数</span><br><span class="line">汇编指令：</span><br><span class="line">mov ax, 0x6AFF</span><br><span class="line">add ax, 0x02</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>写汇编指令只影响 SF 位的值</p>
+<li>
+<p>写汇编指令只影响 SF 位的值</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">等价条件：</span><br><span class="line">0-CF (Carry Flag)：最高位不能发生进位</span><br><span class="line">0-ZF (Zero Flag)：结果不能为 0</span><br><span class="line">1-SF (Sign Flag)：结果的最高位为 1</span><br><span class="line">0-OF (Overflow Flag)：不能发生有符号溢出</span><br><span class="line">0-AF (Auxiliary Flag)：低半部分不能发生进位</span><br><span class="line">0-PF (Parity Flag)：低 8 位中 1 的个数要是奇数</span><br><span class="line">汇编指令：</span><br><span class="line">mov ax, 0xAAAA</span><br><span class="line">add ax, 0x01</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>写汇编指令只影响 OF 位的值</p>
+<li>
+<p>写汇编指令只影响 OF 位的值</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">等价条件：</span><br><span class="line">0-CF (Carry Flag)：最高位不能发生进位</span><br><span class="line">0-ZF (Zero Flag)：结果不能为 0</span><br><span class="line">0-SF (Sign Flag)：结果的最高位不能为 1</span><br><span class="line">1-OF (Overflow Flag)：发生有符号溢出</span><br><span class="line">0-AF (Auxiliary Flag)：低半部分不能发生进位</span><br><span class="line">0-PF (Parity Flag)：低 8 位中 1 的个数要是奇数</span><br><span class="line">思路：</span><br><span class="line">有符号运算结果溢出，ADD 指令有两种情况：</span><br><span class="line">1、正数 + 正数 = 负数 （SF=1，舍弃）</span><br><span class="line">2、负数 + 负数 = 正数 （CF=1，不能用）</span><br><span class="line">都不能用，但是还有 SUB，也是分为两种情况：</span><br><span class="line">1、正数 - 负数 = 负数 （正减负应该更正，结果变负了，溢出）</span><br><span class="line">2、负数 - 正数 = 正数 （负减正应该更负，结果变正了，溢出）</span><br><span class="line">但是情况一是不可以选择的，CF 它不管你正负，它看的是两个无符号数之间谁大谁小，在它的眼里，情况一就是一个小数减去了一个大数，CF 必为 1，所以不可以选择。于是我们选择情况二，构造一个负数减去一个正数，并使得结果为正</span><br><span class="line">汇编指令：</span><br><span class="line">mov ax, 0x90</span><br><span class="line">add ax, 0x20</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>用 MOVS 指令分别移动 5 个字节、5 个字、5 个双字</p>
+<li>
+<p>用 MOVS 指令分别移动 5 个字节、5 个字、5 个双字</p>
 </li>
-<li><p>用 STOS 指令分别移动 5 个字节、5 个字、5 个双字</p>
+<li>
+<p>用 STOS 指令分别移动 5 个字节、5 个字、5 个双字</p>
 </li>
-<li><p>使用 REP 指令重写 7、8 题</p>
+<li>
+<p>使用 REP 指令重写 7、8 题</p>
 </li>
 </ol>
 </div><div class="tags"></div><div class="post-nav"><a class="pre" href="/2026/04/14/01-20JCC/">滴水逆向--01-20 JCC</a><a class="next" href="/2026/04/14/01-16%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80_%E5%A0%86%E6%A0%88/">滴水逆向--01-16 内存地址_堆栈</a></div><div class="nofancybox" id="minivaline-container"></div><script src="https://unpkg.com/minivaline/dist/MiniValine.min.js"></script><script>new MiniValine({
