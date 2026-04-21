@@ -5,14 +5,14 @@
 <p>记住这几个寄存器的位置和名称：</p>
 <ol>
 <li>
-<p>进位标志 CF（Carry Flag）：如果运算结果的<strong>最高位</strong>产生了一个进位或借位，那么，其值为 1，否则 0</p>
+<p>进位标志 CF（Carry Flag）：如果运算结果的<mark>最高位</mark>产生了一个进位或借位，那么，其值为 1，否则 0</p>
 <ul>
 <li>研究进位时，要先确定数字的宽度，知道了宽度才能确定最高位</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MOV AL, 0xEF     MOV AL, 0xFE     MOV 指令不影响标志寄存器</span><br><span class="line">ADD AL, 2        ADD AL, 2</span><br><span class="line">CF=0             CF=1</span><br></pre></td></tr></table></figure>
 </li>
 <li>
-<p>奇偶标识为 PF（Parity Flag）：用于反映运算结果中 1的个数的奇偶性，“1”的个数为偶数，PF 的值为1，否则 0，<strong>只看低八位，不管数据宽度是多少</strong></p>
+<p>奇偶标识为 PF（Parity Flag）：用于反映运算结果中 1的个数的奇偶性，“1”的个数为偶数，PF 的值为1，否则 0，<mark><strong>只看低八位，不管数据宽度是多少</strong></mark></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MOV AL, 3</span><br><span class="line">ADD AL, 3   PF=0</span><br><span class="line">ADD AL, 2   PF=1</span><br></pre></td></tr></table></figure>
 </li>
 <li>
@@ -35,10 +35,10 @@
 <p>最高位进位（CF）与溢出（OF）的区别：</p>
 <ul>
 <li>
-<p>进位标志表示<strong>无符号</strong>数运算结果是否超出范围</p>
+<p>进位标志表示<mark><strong>无符号</strong></mark>数运算结果是否超出范围</p>
 </li>
 <li>
-<p>溢出标志表示<strong>有符号</strong>数运算结果是否超出范围</p>
+<p>溢出标志表示<mark><strong>有符号</strong></mark>数运算结果是否超出范围</p>
 </li>
 <li>
 <p>溢出主要是给有符号数运算用的，在有符号的运算中，有如下的规律：</p>
@@ -47,7 +47,7 @@
 <li>负 + 负 = 负 如果结果是正数，则说明有溢出</li>
 <li>正 + 负 永远都不会有溢出</li>
 </ul>
-<p><strong>做有符号数运算关注 OF，做无符号数运算关注 CF</strong></p>
+<p><mark><strong>做有符号数运算关注 OF，做无符号数运算关注 CF</strong></mark></p>
 </li>
 <li>
 <p>小练习：</p>
@@ -98,7 +98,7 @@
 <p>注意：</p>
 <ul>
 <li>将后面 ESI 中存的内存地址编号中的值（按照给定的数据宽度来取），存入到前面的 EDI 中存的内存地址编号中</li>
-<li>指令执行后，<strong>ESI 和 EDI 都加了 4</strong>，方便下一个值的赋值，这里加 4 还是加 2 取决于 movsd 还是 movsw，加还是减取决于 <strong>DF</strong> 标志位（DF=1的时候是减）</li>
+<li>指令执行后，<mark><strong>ESI 和 EDI 都加了 4</strong></mark>，方便下一个值的赋值，这里加 4 还是加 2 取决于 movsd 还是 movsw，加还是减取决于 <mark><strong>DF</strong></mark> 标志位（DF=1的时候是减）</li>
 <li>如果遇到 MOVS 指令，很可能是字符串的复制</li>
 </ul>
 </li>

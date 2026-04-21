@@ -174,12 +174,12 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV ECX, DWORD PTR DS:[ESP]</span><br><span class="line">LEA ESP, DWORD PTR DA:[ESP+4]</span><br></pre></td></tr></table></figure>
 </li>
 <li>
-<p><strong>使用 2 种方式实现：push esp</strong></p>
+<p><mark>使用 2 种方式实现：push esp</mark></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV DWORD PTR DS:[ESP-4], ESP</span><br><span class="line">SUB ESP, 4</span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV DWORD PTR DS:[ESP-4], ESP</span><br><span class="line">LEA ESP, DWORD PTR DS:[ESP-4]</span><br></pre></td></tr></table></figure>
 </li>
 <li>
-<p><strong>使用 2 种方式实现：pop esp</strong></p>
+<p><mark>使用 2 种方式实现：pop esp</mark></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MOV ESP, DWORD PTR DS:[ESP]</span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LEA ESP, DWORD PTR DS:[ESP+4]</span><br><span class="line">MOV ESP, DWORD PTR DS:[ESP-4]</span><br></pre></td></tr></table></figure>
 </li>
