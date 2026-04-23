@@ -1,48 +1,40 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>滴水逆向--01-14 数据宽度_逻辑运算 | PigaDino' Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="https://unpkg.com/normalize.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/pure-min.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="https://unpkg.com/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="https://unpkg.com/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="https://unpkg.com/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="https://unpkg.com/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">滴水逆向--01-14 数据宽度_逻辑运算</h1><a id="logo" href="/.">PigaDino' Blog</a><p class="description">随便记点什么</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">滴水逆向--01-14 数据宽度_逻辑运算</h1><div class="post-meta">2026-04-14<span> | </span><span class="category"><a href="/categories/%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91%E4%B8%89%E6%9C%9F/">滴水逆向三期</a></span></div><div class="post-content"><h1>数据宽度</h1>
-<p>看成一个圆，当分正负的时候就从中间劈开，左边负数，右边正数，对应平时所讲的正数第一位为 0、负数第一位为 1，且左边最下面为最大的负数</p>
-<p><img src="/images/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/4%E4%BD%8D%E5%AE%BD%E5%BA%A6.png" alt=""></p>
-<p><img src="/images/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/8%E4%BD%8D%E5%AE%BD%E5%BA%A6.png" alt=""></p>
-<p><img src="/images/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/16%E4%BD%8D%E5%AE%BD%E5%BA%A6.png" alt=""></p>
-<p><img src="/images/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/32%E4%BD%8D%E5%AE%BD%E5%BA%A6.png" alt=""></p>
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>滴水逆向--01-14 数据宽度_逻辑运算 | PigaDino' Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="https://unpkg.com/normalize.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/pure-min.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="https://unpkg.com/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="https://unpkg.com/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="https://unpkg.com/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="https://unpkg.com/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">滴水逆向--01-14 数据宽度_逻辑运算</h1><a id="logo" href="/.">PigaDino' Blog</a><p class="description">随便记点什么</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">滴水逆向--01-14 数据宽度_逻辑运算</h1><div class="post-meta">2026-04-14<span> | </span><span class="category"><a href="/categories/%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91%E4%B8%89%E6%9C%9F/">滴水逆向三期</a></span></div><div class="post-content"><h1 id="数据宽度"><a href="#数据宽度" class="headerlink" title="数据宽度"></a>数据宽度</h1><p>看成一个圆，当分正负的时候就从中间劈开，左边负数，右边正数，对应平时所讲的正数第一位为 0、负数第一位为 1，且左边最下面为最大的负数</p>
+<p><img src="/images/01-14数据宽度_逻辑运算/4位宽度.png" alt=""></p>
+<p><img src="/images/01-14数据宽度_逻辑运算/8位宽度.png" alt=""></p>
+<p><img src="/images/01-14数据宽度_逻辑运算/16位宽度.png" alt=""></p>
+<p><img src="/images/01-14数据宽度_逻辑运算/32位宽度.png" alt=""></p>
 <p><strong>几个重要的计量单位：</strong></p>
 <p>BYTE         字节      8bit</p>
 <p>WORD      字          16bit     2字节</p>
 <p>DWORD   双字       32bit    4字节</p>
-<h1>逻辑运算</h1>
-<p>二进制的逻辑运算：</p>
+<h1 id="逻辑运算"><a href="#逻辑运算" class="headerlink" title="逻辑运算"></a>逻辑运算</h1><p>二进制的逻辑运算：</p>
 <ol>
-<li>
-<p>逻辑运算：或（or |）只要有一个为 1 就是 1</p>
-<p><img src="/images/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/%E6%88%96.png" alt=""></p>
+<li><p>逻辑运算：或（or |）只要有一个为 1 就是 1</p>
+<p><img src="/images/01-14数据宽度_逻辑运算/或.png" alt=""></p>
 <p>逻辑运算：与（and &amp;）两个都是 1 才是 1</p>
-<p><img src="/images/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/%E4%B8%8E.png" alt=""></p>
+<p><img src="/images/01-14数据宽度_逻辑运算/与.png" alt=""></p>
 <p>逻辑运算：异或（xor ^）不一样为 1</p>
-<p><img src="/images/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/%E5%BC%82%E6%88%96.png" alt=""></p>
+<p><img src="/images/01-14数据宽度_逻辑运算/异或.png" alt=""></p>
 <p>逻辑运算：非（not !）1 是 0，0 是 1</p>
-<p><img src="/images/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/%E9%9D%9E.png" alt=""></p>
+<p><img src="/images/01-14数据宽度_逻辑运算/非.png" alt=""></p>
 <p>逻辑运算的具体应用：</p>
 <ol>
-<li>
-<p>CPU 是如何计算 2+3=?</p>
-<p><img src="/images/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/2+3.png" alt=""></p>
+<li><p>CPU 是如何计算 2+3=?</p>
+<p><img src="/images/01-14数据宽度_逻辑运算/2+3.png" alt=""></p>
 </li>
-<li>
-<p>如果想获取某个值的第 N 位的值是多少？</p>
-<p><img src="/images/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/%E8%AE%A1%E7%AE%97%E7%AC%ACn%E4%BD%8D.png" alt=""></p>
+<li><p>如果想获取某个值的第 N 位的值是多少？</p>
+<p><img src="/images/01-14数据宽度_逻辑运算/计算第n位.png" alt=""></p>
 </li>
-<li>
-<p>最简单的加密算法</p>
-<p><img src="/images/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E5%8A%A0%E5%AF%86.png" alt=""></p>
+<li><p>最简单的加密算法</p>
+<p><img src="/images/01-14数据宽度_逻辑运算/最简单的加密.png" alt=""></p>
 </li>
 </ol>
 <p>课后作业：</p>
 <ol>
-<li>
-<p>八进制数 2-5 在计算器中的结果是：1777777777777777777775，为什么？</p>
+<li><p>八进制数 2-5 在计算器中的结果是：1777777777777777777775，为什么？</p>
 <p>因为八进制是将 3 个二进制位合为 1 位，而计算机的字长（16/32/64位）通常是 2 的整数次幂，无法被 3 整除。当前计算机 64 位，64/3，商 21 余 1，最左边会剩余 1 位，也就是 1，如果计算机为 32 位，答案就会是 37777777775，16 位就会是 177775</p>
 </li>
-<li>
-<p>使用异或对 87AD6 进行加密后再解密，加解密密钥：5</p>
+<li><p>使用异或对 87AD6 进行加密后再解密，加解密密钥：5</p>
 <p>87AD6：1000 0111 1010 1101 0110</p>
 <p>5：0101</p>
 <p>1000 xor 0101 = 1101</p>
@@ -58,8 +50,7 @@
 <p>0011 xor 0101 = 0110</p>
 <p>解密过后：87AD6</p>
 </li>
-<li>
-<p>只用逻辑运算计算 2-3=？（涉及内容：逻辑运算、移位、数据宽度）</p>
+<li><p>只用逻辑运算计算 2-3=？（涉及内容：逻辑运算、移位、数据宽度）</p>
 <p>2-3 等同于 2+(-3)</p>
 <p>2: 0010     -3: 1101</p>
 <p>Step1. 0010 xor 1101 = 1111</p>
