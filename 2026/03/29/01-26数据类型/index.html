@@ -1,0 +1,271 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title> | PigaDino' Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="https://unpkg.com/normalize.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/pure-min.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="https://unpkg.com/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="https://unpkg.com/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="https://unpkg.com/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="https://unpkg.com/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">PigaDino' Blog</h1><a id="logo" href="/.">PigaDino' Blog</a><p class="description">随便记点什么</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"></h1><div class="post-meta">2026-03-29</div><div class="post-content"><h1>C语言是怎么变成汇编的</h1>
+<p>引言：定义一个函数，什么都不写什么都不做的时候，编译器和链接器就已经自动生成了一个框架</p>
+<p><img src="/images/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E8%87%AA%E5%8A%A8%E6%A1%86%E6%9E%B6.png" alt=""></p>
+<p>如果不想要它自动生成的这个，就可以使用裸函数</p>
+<ol>
+<li>
+<p>什么是裸函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">void __declspec(naked) Function()  			</span><br><span class="line">&#123;...&#125;			</span><br></pre></td></tr></table></figure>
+<p>裸函数调用时与普通函数无异，都是生成一个 call 指令，也就是会先把下一条指令地址压入堆栈，将EIP的值改为 call 后面跟的地址，然后再通过一个 jmp 中转跳到 jmp 后的地址开始执行。</p>
+<p>但是由于是裸函数什么都没做，跳转到函数执行空间之后会发现里面全部都是 int 3，程序运行到这里没有返回没法结束，就会出错，解决方式也很简单，加个 retn 就可以了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">void __declspec(naked) Function()  			</span><br><span class="line">&#123;</span><br><span class="line">	__asm</span><br><span class="line">	&#123;</span><br><span class="line">			ret</span><br><span class="line">	&#125;</span><br><span class="line">&#125;			</span><br></pre></td></tr></table></figure>
+<p>自定义函数需要注意的三点：<mark>参数、局部变量、返回值</mark></p>
+<ul>
+<li>函数的参数，在 call 之前就存到堆栈中了</li>
+<li>传参根据函数使用的<strong>调用约定</strong>来决定参数入栈的<strong>顺序</strong></li>
+<li>函数的<strong>局部变量</strong>是存在<strong>缓冲区</strong>中的，所以要先提升堆栈及填充后才能存放局部变量</li>
+<li>函数的<strong>返回值</strong>，是存在<strong>eax</strong>寄存器中或者<strong>内存</strong>中的</li>
+<li>一定不能少<strong>平衡堆栈</strong></li>
+</ul>
+</li>
+<li>
+<p>无参数无返回值的函数框架</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">void __declspec(naked) Function()  			</span><br><span class="line">&#123;</span><br><span class="line">	__asm</span><br><span class="line">	&#123;</span><br><span class="line">			//保留调用前的栈底</span><br><span class="line">			push ebp</span><br><span class="line">			//提升堆栈</span><br><span class="line">			mov ebp, esp</span><br><span class="line">      sub esp, 0x40</span><br><span class="line">      //保留现场</span><br><span class="line">      push ebx</span><br><span class="line">      push esi</span><br><span class="line">      push edi</span><br><span class="line">      //开始填充缓冲区</span><br><span class="line">      mov eax, 0xCCCCCCCC</span><br><span class="line">      mov ecx, 0x10</span><br><span class="line">      lea edi, dword ptr ds:[ebp-0x40]</span><br><span class="line">      mov eax, 0xCCCCCCCC</span><br><span class="line">      mov ecx, 0x10</span><br><span class="line">      rep stosd</span><br><span class="line">        </span><br><span class="line">      //恢复现场</span><br><span class="line">      pop edi</span><br><span class="line">      pop esi</span><br><span class="line">      pop ebx</span><br><span class="line">      //降低堆栈</span><br><span class="line">      mov esp, ebp</span><br><span class="line">      pop ebp</span><br><span class="line">      </span><br><span class="line">			ret</span><br><span class="line">	&#125;</span><br><span class="line">&#125;	</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>有参数有返回值的函数框架</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">int __declspec(naked) Function(int x, int y)  			</span><br><span class="line">&#123;</span><br><span class="line">	__asm</span><br><span class="line">	&#123;</span><br><span class="line">			//保留调用前的栈底</span><br><span class="line">			push ebp</span><br><span class="line">			//提升堆栈</span><br><span class="line">			mov ebp, esp</span><br><span class="line">      sub esp, 0x40</span><br><span class="line">      //保留现场</span><br><span class="line">      push ebx</span><br><span class="line">      push esi</span><br><span class="line">      push edi</span><br><span class="line">      //开始填充缓冲区</span><br><span class="line">      mov eax, 0xCCCCCCCC</span><br><span class="line">      mov ecx, 0x10</span><br><span class="line">      lea edi, dword ptr ds:[ebp-0x40]</span><br><span class="line">      mov eax, 0xCCCCCCCC</span><br><span class="line">      mov ecx, 0x10</span><br><span class="line">      rep stosd</span><br><span class="line">      </span><br><span class="line">      //函数的核心功能</span><br><span class="line">      mov eax, dword ptr ds:[ebp+8]</span><br><span class="line">      add eax, dword ptr ds:[ebp+0xC]</span><br><span class="line">        </span><br><span class="line">      //恢复现场</span><br><span class="line">      pop edi</span><br><span class="line">      pop esi</span><br><span class="line">      pop ebx</span><br><span class="line">      //降低堆栈</span><br><span class="line">      mov esp, ebp</span><br><span class="line">      pop ebp</span><br><span class="line">      </span><br><span class="line">			ret</span><br><span class="line">	&#125;</span><br><span class="line">&#125;	</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>带局部变量的函数框架</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">int __declspec(naked) Function(int x, int y)  			</span><br><span class="line">&#123;</span><br><span class="line">	__asm</span><br><span class="line">	&#123;</span><br><span class="line">			//保留调用前的栈底</span><br><span class="line">			push ebp</span><br><span class="line">			//提升堆栈</span><br><span class="line">			mov ebp, esp</span><br><span class="line">      sub esp, 0x40</span><br><span class="line">      //保留现场</span><br><span class="line">      push ebx</span><br><span class="line">      push esi</span><br><span class="line">      push edi</span><br><span class="line">      //开始填充缓冲区</span><br><span class="line">      mov eax, 0xCCCCCCCC</span><br><span class="line">      mov ecx, 0x10</span><br><span class="line">      lea edi, dword ptr ds:[ebp-0x40]</span><br><span class="line">      mov eax, 0xCCCCCCCC</span><br><span class="line">      mov ecx, 0x10</span><br><span class="line">      rep stosd</span><br><span class="line">      //局部变量</span><br><span class="line">      mov dword ptr ds:[ebp-4], 2</span><br><span class="line">      mov dword ptr ds:[ebp-8], 3</span><br><span class="line">      </span><br><span class="line">      //函数的核心功能</span><br><span class="line">      mov eax, dword ptr ds:[ebp+8]</span><br><span class="line">      add eax, dword ptr ds:[ebp+0xC]</span><br><span class="line">        </span><br><span class="line">      //恢复现场</span><br><span class="line">      pop edi</span><br><span class="line">      pop esi</span><br><span class="line">      pop ebx</span><br><span class="line">      //降低堆栈</span><br><span class="line">      mov esp, ebp</span><br><span class="line">      pop ebp</span><br><span class="line">      </span><br><span class="line">			ret</span><br><span class="line">	&#125;</span><br><span class="line">&#125;	</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1>函数的调用约定</h1>
+<p>调用约定规定了参数的传递顺序</p>
+<p>常见的几种调用约定：</p>
+<table>
+<thead>
+<tr>
+<th>调用约定</th>
+<th>参数压栈顺序</th>
+<th>平衡堆栈</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>__cdecl</code></td>
+<td>从右至左入栈</td>
+<td>调用者清理栈</td>
+</tr>
+<tr>
+<td><code>__stdcall</code></td>
+<td>从右至左入栈</td>
+<td>自身清理堆栈</td>
+</tr>
+<tr>
+<td><code>__fastcall</code></td>
+<td>ECX/EDX 传送前两个参数；剩下参数：从右至左入栈</td>
+<td>自身清理堆栈</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>
+<p><code>__cdecl</code>调用约定</p>
+<p>C/C++ 默认使用，使用堆栈（内存）传递参数，顺序为从右往前 push；在 call 的外面平衡堆栈（谁调用谁平衡），call 指令后跟一条<code>add esp,x</code>，又称为<strong>外平栈</strong></p>
+<p><img src="/images/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/cdecl.png" alt=""></p>
+</li>
+<li>
+<p><code>__stdcall</code>调用约定</p>
+<p>win32 的 API 函数默认使用，传参依旧从右往前 push，但是堆栈平衡是在调用函数内的（<strong>内平栈</strong>）。具体方法为 retn 后面跟一个立即数，表示修改 eip 的值为返回地址并且将 esp + 立即数，来做到平衡堆栈。</p>
+<p><img src="/images/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/stdcall1.png" alt=""></p>
+<p><img src="/images/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/stdcall2.png" alt=""></p>
+</li>
+<li>
+<p><code>__fastcall</code>调用约定</p>
+<p>传递参数使用寄存器，特点就是速度快（远远比内存快）。但是参数传递只会使用两个寄存器（edx，ecx），参数多了依旧会使用内存传递。如果是只使用寄存器来传递参数的话，就不需要平衡堆栈了。</p>
+<p>两参数的情况：</p>
+<p><img src="/images/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/fastcall1-1.png" alt=""></p>
+<p><img src="/images/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/fastcall1-2.png" alt=""></p>
+<p>两个以上的参数：</p>
+<p><img src="/images/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/fastcall2-1.png" alt=""></p>
+<p><img src="/images/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/fastcall2-2.png" alt=""></p>
+<p>这里需要插播一句，可以看到在实现函数的计算功能之前，有两条 mov 指令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov dword ptr [ebp-8], edx</span><br><span class="line">mov dword ptr [ebp-4], ecx</span><br></pre></td></tr></table></figure>
+<p>这并不是定义了两个局部变量，而是编译器自己把 edx，ecx 寄存器中的两个数存到了内存中。因为在函数的运行过程中，edx 和 ecx 很容易被覆盖，为了不丢失这两个参数，就先把他们存到内存中备份了</p>
+</li>
+<li>
+<p>如何判断一个函数的传参个数</p>
+<ul>
+<li>不可以简单根据 add 和 retn 后的数来判断，因为还有可能用了寄存器</li>
+<li>也不可以简单根据 call 前 push 和 mov 了几个来判断，因为现在 push 的可能是下一个函数才会用到的</li>
+</ul>
+<p>正确的方法为：<mark>结合起来！</mark>更稳妥一些就是老老实实看指令。</p>
+</li>
+</ol>
+<h1>程序的入口</h1>
+<p>main 是语法规定的用户入口，并不是真正的程序入口。应用程序入口通常是<strong>启动函数</strong></p>
+<ol>
+<li>
+<p>mainCRTStartup()</p>
+<p>mainCRTStartup() 就是程序的入口，最好不要轻易修改，因为这个函数做了很多初始化工作，如果修改了这个入口后面的程序会出现很多问题</p>
+<p>具体做了哪些初始化工作呢：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">GetVersion()  <span class="comment">//获得当前操作系统的版本</span></span><br><span class="line">_heap_init()  <span class="comment">//初始化堆的空间大小</span></span><br><span class="line">GetCommandLineA()  <span class="comment">//获取命令行的参数 	</span></span><br><span class="line">_crtGetEnvironmentStringsA()  <span class="comment">//获取环境变量</span></span><br><span class="line">_setargv()</span><br><span class="line">_setenvp()	</span><br><span class="line">_cinit()	</span><br></pre></td></tr></table></figure>
+<p>这些初始化工作也可以被用于 main 函数的识别。看到这些函数，就在后面找，看到一个有三个参数的，那个就是了</p>
+<p><img src="/images/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/main%E8%AF%86%E5%88%AB.png" alt=""></p>
+<p><img src="/images/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/main%E8%AF%86%E5%88%AB%E6%B1%87%E7%BC%96.png" alt=""></p>
+</li>
+<li>
+<p>其他入口函数</p>
+<ul>
+<li>mainCRTStartup 和 wmainCRTStartup 是控制台环境下多字节编码和 Unicode 编码的启动函数</li>
+<li>而 WinMainCRTStartup 和 wWinMainCRTStartup 是 windows 环境下多字节编码和 Unicode 编码的启动函数</li>
+</ul>
+</li>
+</ol>
+<h1>数据类型与数据存储</h1>
+<ol>
+<li>
+<p>C 语言中的数据类型</p>
+<p><img src="/images/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/C%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png" alt=""></p>
+</li>
+<li>
+<p>学习数据类型的三个要素</p>
+<ul>
+<li>存储数据的宽度：能存多大</li>
+<li>存储数据的格式：里面到底存啥</li>
+<li>作用范围（作用域）：哪里可以用、哪里不能用</li>
+</ul>
+</li>
+<li>
+<p>整数类型：char  short  int  long</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>位数（BIT）</th>
+<th>字节数</th>
+<th>汇编对应类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>char</td>
+<td>8 BIT</td>
+<td>1 字节</td>
+<td>BYTE</td>
+</tr>
+<tr>
+<td>short</td>
+<td>16 BIT</td>
+<td>2 字节</td>
+<td>WORD</td>
+</tr>
+<tr>
+<td>int</td>
+<td>32 BIT</td>
+<td>4 字节</td>
+<td>DWORD</td>
+</tr>
+<tr>
+<td>long</td>
+<td>32 BIT</td>
+<td>4 字节</td>
+<td>DWORD</td>
+</tr>
+</tbody>
+</table>
+<p>举例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">Plus</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="type">char</span> i = <span class="number">0xFF</span>;  <span class="comment">//byte</span></span><br><span class="line">	<span class="type">short</span> x = <span class="number">0xFF</span>;  <span class="comment">//word</span></span><br><span class="line">	<span class="type">int</span> y = <span class="number">0xFF</span>;  <span class="comment">//dword</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E6%95%B4%E6%95%B0.png" alt=""></p>
+<p>如果数据超出了数据类型的表示范围，那就只存它那个大小的内容：</p>
+<p><img src="/images/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E6%95%B4%E6%95%B0%E8%B6%85%E5%87%BA.png" alt=""></p>
+<p>整数类型分为有符号（signed）和无符号（unsigned）两种：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">Plus</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="comment">//默认就是有符号</span></span><br><span class="line">  <span class="type">char</span> i = <span class="number">0xFF</span>;</span><br><span class="line">  <span class="type">unsigned</span> <span class="type">char</span> k = <span class="number">0xFF</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E6%9C%89%E6%97%A0%E7%AC%A6%E5%8F%B7.png" alt=""></p>
+<p>虽然内存中是一样的，但是打印出来就不一样了，有符号是 -1，无符号是 255，看你怎么用</p>
+<p><mark>是有/无符号数这件事，<strong>在做类型转换、比较大小和数学运算的时候一定要多加注意</strong></mark>，其他时候都无所谓</p>
+</li>
+<li>
+<p>浮点类型：float  double</p>
+<p>问题就在于小数的存储，float 和 double 在存储方式上都是遵从IEEE的规范的，任何一个浮点数都是由三部分组成的</p>
+<p>float 的存储方式如下：</p>
+<p><img src="/images/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/float.png" alt=""></p>
+<p>double 的存储方式如下：</p>
+<p><img src="/images/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/double.png" alt=""></p>
+<p>将一个 float 型转化为内存存储格式的步骤为：</p>
+<ol>
+<li>
+<p>先将这个实数的绝对值化为二进制格式：整数和小数部分分开转换，小数部分可能会有乘不尽的情况，因此需要一个精确位数来约束</p>
+</li>
+<li>
+<p>将这个二进制格式实数的小数点左移或右移 n 位，直到小数点移动到第一个有效数字的右边</p>
+</li>
+<li>
+<p>从小数点右边第一位开始数出二十三位数字放入第 22 到第 0 位</p>
+</li>
+<li>
+<p>如果实数是正的，则在第 31 位放入“0”，否则放入“1”</p>
+</li>
+<li>
+<p>如果 n 是左移得到的，说明指数是正的，第 30 位放入“1”。如果 n 是右移得到的或 n=0，则第 30 位放入“0”</p>
+</li>
+<li>
+<p>如果 n 是左移得到的，则将 n 减去 1 后化为二进制，并在左边加“0”补足七位，放入第 29 到第 23 位</p>
+<p>如果 n 是右移得到的或 n=0，则将 n 化为二进制后在左边加“0”补足七位，再各位求反，再放入第 29 到第23 位</p>
+</li>
+</ol>
+<p>举例说明：</p>
+<p><img src="/images/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BD%AC%E6%8D%A2.png" alt=""></p>
+</li>
+<li>
+<p>英文字符存储</p>
+<ul>
+<li>ASCII 码使用指定的 7 位或 8 位二进制数组合来表示 128 或 256 种可能的字符
+<ul>
+<li>标准 ASCII 码使用 7 位二进制数来表示所有的大写和小写字母，数字 0 到 9、标点符号，以及在美式英语中使用的特殊控制字符</li>
+<li>扩展 ASCII 码允许将每个字符的第 8 位用于确定附加的 128 个特殊符号字符、外来语字母和图形符号。</li>
+</ul>
+</li>
+</ul>
+<p>ASCII 码表这里就不做展示了，需要的时候去搜就行了</p>
+</li>
+<li>
+<p>中文字符存储</p>
+<p>计算机发明之处及后面很长一段时间，只用应用于美国及西方一些发达国家，ASCII 能够很好满足用户的需求。但是当天朝也有了计算机之后，为了显示中文，必须设计一套编码规则用于将汉字转换为计算机可以接受的数字系统的数。天朝专家把那些 127 号之后的奇异符号们（即EASCII）取消掉，规定：一个小于 127 的字符的意义与原来相同，但两个大于 127 的字符连在一起时，就表示一个汉字，前面的一个字节（他称之为高字节）从 0xA1 用到 0xF7，后面一个字节（低字节）从 0xA1 到 0xFE，这样我们就可以组合出大约 7000 多个简体汉字了。在这些编码里，还把数学符号、罗马希腊的字母、日文的假名们都编进去了，连在 ASCII 里本来就有的数字、标点、字母都统统重新编了两个字节长的编码，这就是常说的&quot;全角&quot;字符，而原来在 127 号以下的那些就叫&quot;半角&quot;字符了。上述编码规则就是 GB2312 或 GB2312-80。</p>
+<p><img src="/images/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E4%B8%AD%E6%96%87.png" alt=""></p>
+</li>
+</ol>
+<h1>课后作业</h1>
+<ol>
+<li>
+<p>用 <code>__declspec(naked)</code> 裸函数实现下面的功能</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">Plus</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> z)</span> &#123;	</span><br><span class="line">	<span class="type">int</span> a = <span class="number">2</span>;</span><br><span class="line">	<span class="type">int</span> b = <span class="number">3</span>;</span><br><span class="line">	<span class="type">int</span> c = <span class="number">4</span>;</span><br><span class="line">	<span class="keyword">return</span> x+y+z+a+b+c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>裸函数如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">int __declspec(naked) Plus(int x, int y, int z) &#123;</span><br><span class="line">  __asm&#123;</span><br><span class="line">      //保留调用前的栈底</span><br><span class="line">			push ebp</span><br><span class="line">			//提升堆栈</span><br><span class="line">			mov ebp, esp</span><br><span class="line">      sub esp, 0x40</span><br><span class="line">      //保留现场</span><br><span class="line">      push ebx</span><br><span class="line">      push esi</span><br><span class="line">      push edi</span><br><span class="line">      //开始填充缓冲区</span><br><span class="line">      mov eax, 0xCCCCCCCC</span><br><span class="line">      mov ecx, 0x10</span><br><span class="line">      lea edi, dword ptr ds:[ebp-0x40]</span><br><span class="line">      mov eax, 0xCCCCCCCC</span><br><span class="line">      mov ecx, 0x10</span><br><span class="line">      rep stosd</span><br><span class="line">      </span><br><span class="line">      //函数的核心功能</span><br><span class="line">      mov dword ptr ds:[ebp-0x4], 0x2</span><br><span class="line">      mov dword ptr ds:[ebp-0x8], 0x3</span><br><span class="line">      mov dword ptr ds:[ebp-0xC], 0x4</span><br><span class="line">      </span><br><span class="line">      mov eax, dword ptr ds:[ebp+8]</span><br><span class="line">      add eax, dword ptr ds:[ebp+0xC]</span><br><span class="line">      add eax, dword ptr ds:[ebp+0x10]</span><br><span class="line">      add eax, dword ptr ds:[ebp-0x4]</span><br><span class="line">      add eax, dword ptr ds:[ebp-0x8]</span><br><span class="line">      add eax, dword ptr ds:[ebp-0xC]</span><br><span class="line">        </span><br><span class="line">      //恢复现场</span><br><span class="line">      pop edi</span><br><span class="line">      pop esi</span><br><span class="line">      pop ebx</span><br><span class="line">      //降低堆栈</span><br><span class="line">      mov esp, ebp</span><br><span class="line">      pop ebp</span><br><span class="line">      </span><br><span class="line">			ret</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>将 float 类型的 12.5 转换成 16 进制</p>
+<p><img src="/images/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E4%BD%9C%E4%B8%9A2.png" alt=""></p>
+</li>
+<li>
+<p>将 CallingConvention.exe 逆向成 C 语言</p>
+<p>先找到 main，往下找找，看到一个 push 了三个参数的 call，前面也有 GetVersion、GetCommandLineA（没截上）啥的，这个应该就是 main 了</p>
+<p><img src="/images/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/3-1.png" alt=""></p>
+<p>进去 call 之后，函数全貌如下：</p>
+<p><img src="/images/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/3-2.png" alt=""></p>
+<p>可以看到有一个 00401019，传了五个参数，两个通过寄存器，三个通过 push 进内存传递，应该是个 <code>__fastcall</code>，传了 1，3，4，6，7 这五个参数，进去分析一下这个函数</p>
+<p><img src="/images/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/3-3.png" alt=""></p>
+<p>一共有三个 call，后面两个地址是一样的，是同一个函数，先看第一个</p>
+<p><img src="/images/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/3-4.png" alt=""></p>
+<p>这个函数没有在外面平衡堆栈，使用内存传递了三个参数，推测使用的是<code>__stdcall</code>，函数内的逻辑也很简单，就是把传入的三个参数加起来了，返回三个数的和。传递进去的三个参数就是 1，3，4（不清楚的话可以画一下堆栈图，堆栈图真是个好东西），运算的结果通过外面的<code>mov dword ptr ss:[ebp-0xC], eax</code>存到局部变量里，接下来就是那个蓝色框的函数了，它长这样：</p>
+<p><img src="/images/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/3-5.png" alt=""></p>
+<p>这个是在外面平衡堆栈的，传参也是通过内存，所以是<code>__cdecl</code>。功能也是很简单的加法运算，传递进去的参数为1、3，返回 1+3 的值并通过函数外的<code>mov dword ptr ss:[ebp-0x10], eax</code>存到一个新的局部变量里，下一个蓝色的框也是一样，但是传进去的参数是前面两次得到的局部变量（<code>[ebp-0xC]</code>和<code>[ebp-0x10]</code>），求和返回。这个大函数就解决了</p>
+<p>回到 main 里面，刚才那个函数返回值存到了局部变量里，下面还有一个 call，但这就是一个 printf，就不进去看了</p>
+<p><img src="/images/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/3-6.png" alt=""></p>
+<p>所以整理一下，还原后的 c 如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> __stdcall <span class="title function_">Plus1</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> z)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y + z;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> __cdecl <span class="title function_">Plus2</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> __fastcall <span class="title function_">Plus</span><span class="params">(<span class="type">int</span> a,<span class="type">int</span> b,<span class="type">int</span> c,<span class="type">int</span> d,<span class="type">int</span> e)</span>&#123;</span><br><span class="line">    <span class="type">int</span> f;</span><br><span class="line">    <span class="type">int</span> g;</span><br><span class="line">    f = Plus1(a, b, c);  <span class="comment">//1+3+4</span></span><br><span class="line">    g = Plus2(a, b);  <span class="comment">//1+3</span></span><br><span class="line">    <span class="keyword">return</span> Plus2(f, g);  <span class="comment">//8+4</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span>  &#123;</span><br><span class="line">    <span class="type">int</span> ans;</span><br><span class="line">    ans = Plus(<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">7</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, ans);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</div><div class="tags"></div><div class="post-nav"><a class="pre" href="/2026/04/13/start-from-here/">start from here</a></div><div class="nofancybox" id="minivaline-container"></div><script src="https://unpkg.com/minivaline/dist/MiniValine.min.js"></script><script>new MiniValine({
+  el: '#minivaline-container',
+  appId: '',
+  appKey: '',
+  placeholder: 'Write a Comment',
+  lang: '',
+  adminEmailMd5: '',
+  math: true,
+  md: true
+})
+</script></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://example.com"/></form></div><div class="widget"><div class="author-info"><a class="info-avatar" href="/about/" title="关于"><img class="nofancybox" src="/images/avatar.jpg"/></a><p>怕上火，喝王老吉</p><a class="info-icon" href="https://blog.pigadino.com/" title="Twitter" target="_blank" style="margin-inline:5px"> <i class="fa fa-twitter-square" style="margin-inline:5px"></i></a><a class="info-icon" href="mailto:1282040096@qq.com" title="Email" target="_blank" style="margin-inline:5px"> <i class="fa fa-envelope-square" style="margin-inline:5px"></i></a><a class="info-icon" href="https://github.com/dinosod" title="Github" target="_blank" style="margin-inline:5px"> <i class="fa fa-github-square" style="margin-inline:5px"></i></a><a class="info-icon" href="/atom.xml" title="RSS" target="_blank" style="margin-inline:5px"> <i class="fa fa-rss-square" style="margin-inline:5px"></i></a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91%E4%B8%89%E6%9C%9F/">滴水逆向三期</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-23C%E8%AF%AD%E8%A8%80/">滴水逆向--01-23 C语言</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-22%E5%A0%86%E6%A0%88%E5%9B%BE2/">滴水逆向--01-22 堆栈图2</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-21%E5%A0%86%E6%A0%88%E5%9B%BE1/">滴水逆向--01-21 堆栈图1</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-20JCC/">滴水逆向--01-20 JCC</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-19%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8/">滴水逆向--01-19 标志寄存器</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-16%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80_%E5%A0%86%E6%A0%88/">滴水逆向--01-16 内存地址_堆栈</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-15%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8_%E5%86%85%E5%AD%98%E8%AF%BB%E5%86%99/">滴水逆向--01-15 通用寄存器_内存读写</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-14%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6_%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/">滴水逆向--01-14 数据宽度_逻辑运算</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-13%E8%BF%9B%E5%88%B62/">滴水逆向--01-13 进制2</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/14/01-12%E8%BF%9B%E5%88%B61/">滴水逆向--01-12 进制1</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://www.example1.com/" title="广告位招租" target="_blank">广告位招租</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2026 <a href="/." rel="nofollow">PigaDino' Blog.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="https://unpkg.com/@fancyapps/fancybox/dist/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0" async></script><link rel="stylesheet" type="text/css" href="https://unpkg.com/@fancyapps/fancybox/dist/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js?v=1.0.0" successtext="复制成功！"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css?v=1.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>
