@@ -225,6 +225,8 @@
 <p>中文字符存储</p>
 <p>计算机发明之处及后面很长一段时间，只用应用于美国及西方一些发达国家，ASCII 能够很好满足用户的需求。但是当天朝也有了计算机之后，为了显示中文，必须设计一套编码规则用于将汉字转换为计算机可以接受的数字系统的数。天朝专家把那些 127 号之后的奇异符号们（即EASCII）取消掉，规定：一个小于 127 的字符的意义与原来相同，但两个大于 127 的字符连在一起时，就表示一个汉字，前面的一个字节（他称之为高字节）从 0xA1 用到 0xF7，后面一个字节（低字节）从 0xA1 到 0xFE，这样我们就可以组合出大约 7000 多个简体汉字了。在这些编码里，还把数学符号、罗马希腊的字母、日文的假名们都编进去了，连在 ASCII 里本来就有的数字、标点、字母都统统重新编了两个字节长的编码，这就是常说的&quot;全角&quot;字符，而原来在 127 号以下的那些就叫&quot;半角&quot;字符了。上述编码规则就是 GB2312 或 GB2312-80。</p>
 <p><img src="/images/01-26%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E4%B8%AD%E6%96%87.png" alt=""></p>
+<p>中文字符存储：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>* x = <span class="string">&quot;啊&quot;</span>;</span><br><span class="line"><span class="type">char</span>* y = <span class="string">&quot;北&quot;</span>;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h1>课后作业</h1>
