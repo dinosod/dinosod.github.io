@@ -8,11 +8,11 @@
 <ol>
 <li>
 <p><code>MOVSX</code>先符号扩展，再传送（有符号数用）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MOV AL, 0xFF               1111 1111</span><br><span class="line">MOVSX CX, AL     1111 1111 1111 1111</span><br><span class="line">MOV AL, 80                 0100 0000</span><br><span class="line">MOVSX CX, AL     0000 0000 0100 0000</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MOV AL, 0xFF               1111 1111</span><br><span class="line">MOVSX CX, AL     1111 1111 1111 1111</span><br><span class="line">MOV AL, 80                 1000 0000</span><br><span class="line">MOVSX CX, AL     1111 1111 1000 0000</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p><code>MOVZX</code>先零扩展，再传送（无符号数用）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MOV AL, 0xFF               1111 1111</span><br><span class="line">MOVZX CX, AL     0000 0000 1111 1111</span><br><span class="line">MOV AL, 80                 0100 0000</span><br><span class="line">MOVZX CX, AL     0000 0000 0100 0000</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MOV AL, 0xFF               1111 1111</span><br><span class="line">MOVZX CX, AL     0000 0000 1111 1111</span><br><span class="line">MOV AL, 80                 1000 0000</span><br><span class="line">MOVZX CX, AL     0000 0000 1000 0000</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>当表达式中存在不同宽度的变量时，结果将转换为宽度最大的那个。<br>
