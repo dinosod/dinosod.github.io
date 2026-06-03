@@ -1,18 +1,14 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>滴水逆向--02-02 参数_返回值_局部变量_数组反汇编 | PigaDino' Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="https://unpkg.com/normalize.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/pure-min.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="https://unpkg.com/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="https://unpkg.com/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="https://unpkg.com/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="https://unpkg.com/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">滴水逆向--02-02 参数_返回值_局部变量_数组反汇编</h1><a id="logo" href="/.">PigaDino' Blog</a><p class="description">随便记点什么</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">滴水逆向--02-02 参数_返回值_局部变量_数组反汇编</h1><div class="post-meta">2026-05-31<span> | </span><span class="category"><a href="/categories/%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91%E4%B8%89%E6%9C%9F/">滴水逆向三期</a></span></div><div class="post-content"><h1>返回值的传递</h1>
-<ul>
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>滴水逆向--02-02 参数_返回值_局部变量_数组反汇编 | PigaDino' Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="https://unpkg.com/normalize.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/pure-min.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="https://unpkg.com/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="https://unpkg.com/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="https://unpkg.com/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="https://unpkg.com/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">滴水逆向--02-02 参数_返回值_局部变量_数组反汇编</h1><a id="logo" href="/.">PigaDino' Blog</a><p class="description">随便记点什么</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">滴水逆向--02-02 参数_返回值_局部变量_数组反汇编</h1><div class="post-meta">2026-05-31<span> | </span><span class="category"><a href="/categories/%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91%E4%B8%89%E6%9C%9F/">滴水逆向三期</a></span></div><div class="post-content"><h1 id="返回值的传递"><a href="#返回值的传递" class="headerlink" title="返回值的传递"></a>返回值的传递</h1><ul>
 <li><code>char</code> 类型的返回值：用 <code>al</code> 存</li>
 <li><code>short</code> 类型的返回值：用 <code>ax</code> 存</li>
 <li><code>int</code> 类型的返回值：用 <code>eax</code> 存</li>
 <li>宽度为 64 位的返回值数据类型要怎么存储？见作业1</li>
 </ul>
-<h1>参数传递</h1>
-<ul>
-<li>本机尺寸：如果本机是 32 位的，那么对 32 位的数据支持最好，如果是 64 位的，那么对 64 位的支持最好。编译器也遵守了这个规则：char 类型或者 short 类型的参数不但没有节省空间，反而浪费了多余的操作（比如会进行符号拓展）。<br>
-所以很多人误以为使用 char 或 short 类型总能节省内存，但在底层传递和存储时，你定义的虽然是一个/两个字节，但是编译器会统一按照 32 位四字节去传递，而且现代 64 位编译器也都是优先使用寄存器传参了，所以对于函数参数和局部变量来说，去定义一个小一点的数据类型没什么鸟用。不过对于结构体和数组，这时候用 char 和 short 就有意义了，因为在内存中连续大批量存储时，编译器会进行打包，这时候千万个 char 就能省下大量内存。</li>
+<h1 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h1><ul>
+<li>本机尺寸：如果本机是 32 位的，那么对 32 位的数据支持最好，如果是 64 位的，那么对 64 位的支持最好。编译器也遵守了这个规则：char 类型或者 short 类型的参数不但没有节省空间，反而浪费了多余的操作（比如会进行符号拓展）。<br>所以很多人误以为使用 char 或 short 类型总能节省内存，但在底层传递和存储时，你定义的虽然是一个/两个字节，但是编译器会统一按照 32 位四字节去传递，而且现代 64 位编译器也都是优先使用寄存器传参了，所以对于函数参数和局部变量来说，去定义一个小一点的数据类型没什么鸟用。不过对于结构体和数组，这时候用 char 和 short 就有意义了，因为在内存中连续大批量存储时，编译器会进行打包，这时候千万个 char 就能省下大量内存。</li>
 <li>参数传递的本质：将上层函数的变量，或者表达式的值“复制一份”，传递给下层函数</li>
 </ul>
-<h1>局部变量的内存分配</h1>
-<p>局部变量会影响编译器在函数调用初始化时的缓冲区空间，函数提升堆栈时，开辟的缓冲区大小默认为 0x40（并不绝对，不同编译器不一样），如果函数中定义了一个局部变量，大小也会相应增加，每个局部变量增加 4 字节，不管类型是什么</p>
+<h1 id="局部变量的内存分配"><a href="#局部变量的内存分配" class="headerlink" title="局部变量的内存分配"></a>局部变量的内存分配</h1><p>局部变量会影响编译器在函数调用初始化时的缓冲区空间，函数提升堆栈时，开辟的缓冲区大小默认为 0x40（并不绝对，不同编译器不一样），如果函数中定义了一个局部变量，大小也会相应增加，每个局部变量增加 4 字节，不管类型是什么</p>
 <p>总结：</p>
 <ul>
 <li>小于32位的局部变量，空间在分配时，按32位分配</li>
@@ -21,36 +17,28 @@
 <li>参数与局部变量没有本质区别，区别只是参数是在函数调用时分配的，局部变量是在函数执行时分配的，本质上  都是局部变量，都在栈中分配</li>
 <li>完全可以把参数当初局部变量使用</li>
 </ul>
-<h1>数组</h1>
-<p>数组的本质就是一排等宽的数据</p>
+<h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><p>数组的本质就是一排等宽的数据</p>
 <p>数组的堆栈分配：</p>
-<p><img src="/images/02-02%E5%8F%82%E6%95%B0_%E8%BF%94%E5%9B%9E%E5%80%BC_%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F_%E6%95%B0%E7%BB%84%E5%8F%8D%E6%B1%87%E7%BC%96/%E6%95%B0%E7%BB%84.png" alt=""></p>
-<h1>课后作业</h1>
-<ol>
-<li>
-<p>返回值超过32位时，存在哪里？用long long(__int64)类型做实验</p>
+<p><img src="/images/02-02参数_返回值_局部变量_数组反汇编/数组.png" alt=""></p>
+<h1 id="课后作业"><a href="#课后作业" class="headerlink" title="课后作业"></a>课后作业</h1><ol>
+<li><p>返回值超过32位时，存在哪里？用long long(__int64)类型做实验</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">__int64 <span class="title function_">Func</span><span class="params">()</span>&#123;</span><br><span class="line">  __int64 x = <span class="number">0x1234567890</span>;</span><br><span class="line">  <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>汇编代码如下：</p>
-<p><img src="/images/02-02%E5%8F%82%E6%95%B0_%E8%BF%94%E5%9B%9E%E5%80%BC_%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F_%E6%95%B0%E7%BB%84%E5%8F%8D%E6%B1%87%E7%BC%96/%E4%BD%9C%E4%B8%9A1.jpeg" alt=""></p>
-<p>存储时先对 0x1234567890 进行补齐，在前面补 0，变成 0x 00000012 34567890。低 32 位（34567890h）存入低地址 [ebp-8]，高 32 位（00000012h）存入高地址 [ebp-4]。<br>
-正常来讲，函数返回值是通过 eax 寄存器带回的，但是 64 位的要怎么带呢，从汇编中可以看出它是拉上了 edx 寄存器一起干活，eax 存低位，edx 存高位，两个寄存器共同拼成一个 64 位的数据</p>
+<p><img src="/images/02-02参数_返回值_局部变量_数组反汇编/作业1.jpeg" alt=""></p>
+<p>存储时先对 0x1234567890 进行补齐，在前面补 0，变成 0x 00000012 34567890。低 32 位（34567890h）存入低地址 [ebp-8]，高 32 位（00000012h）存入高地址 [ebp-4]。<br>正常来讲，函数返回值是通过 eax 寄存器带回的，但是 64 位的要怎么带呢，从汇编中可以看出它是拉上了 edx 寄存器一起干活，eax 存低位，edx 存高位，两个寄存器共同拼成一个 64 位的数据</p>
 </li>
-<li>
-<p><code>char arr[3] = {1,2,3};</code> 与 <code>char arr[4] = {1,2,3,4};</code> 哪个更节省空间，从反汇编的角度来说明你的观点</p>
+<li><p><code>char arr[3] = {1,2,3};</code> 与 <code>char arr[4] = {1,2,3,4};</code> 哪个更节省空间，从反汇编的角度来说明你的观点</p>
 <p><code>char arr[4] = {1,2,3,4};</code> 更省，由于编译器需要对齐，所以两个实际上都 4 字节的内存，但是 arr[3] 会造成空间的浪费。不过这也不能说省吧，毕竟俩都是一样的，只能说利用率更高。将此疑惑问过ai后，它说如果开启了编译器优化，arr[4] 会被编译器拼成一个完整的 32 位整数（如 0x04030201），只需 1 条指令（mov dword）就能完成赋值，机器码体积小，而 arr[3] 凑不齐标准字长，就会被迫拆分成 2~3 条碎片化指令写入，这样就会增加编译后的程序体积，所以 arr[4] 要更优。</p>
 </li>
-<li>
-<p>找出下面赋值过程的反汇编代码</p>
+<li><p>找出下面赋值过程的反汇编代码</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">Function</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="type">int</span> x = <span class="number">1</span>;</span><br><span class="line">	<span class="type">int</span> y = <span class="number">2</span>;</span><br><span class="line">	<span class="type">int</span> r;</span><br><span class="line">	<span class="type">int</span> arr[<span class="number">10</span>] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>&#125;;</span><br><span class="line"></span><br><span class="line">	r = arr[<span class="number">1</span>];</span><br><span class="line">	r = arr[x];</span><br><span class="line">	r = arr[x+y];</span><br><span class="line">	r = arr[x*<span class="number">2</span>+y];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="/images/02-02%E5%8F%82%E6%95%B0_%E8%BF%94%E5%9B%9E%E5%80%BC_%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F_%E6%95%B0%E7%BB%84%E5%8F%8D%E6%B1%87%E7%BC%96/%E4%BD%9C%E4%B8%9A3.jpeg" alt=""></p>
+<p><img src="/images/02-02参数_返回值_局部变量_数组反汇编/作业3.jpeg" alt=""></p>
 </li>
-<li>
-<p>桶排序</p>
+<li><p>桶排序</p>
 <p>课上讲的严格来说应该是计数排序，懒得做了，两个都可以在 oiwiki 上看</p>
 </li>
 </ol>
-<p>我一直以为我的博客是淡黄色的，原来是纯白的吗，搜了搜是因为开了原彩可能会因为环境光导致屏幕发黄，我还寻思淡淡的claude色怪好看呢。。。<br>
-得去搞期末考试了，可能会断更近一个月</p>
+<p>我一直以为我的博客是淡黄色的，原来是纯白的吗，搜了搜是因为开了原彩可能会因为环境光导致屏幕发黄，我还寻思淡淡的claude色怪好看呢。。。<br>得去搞期末考试了，可能会断更近一个月</p>
 </div><div class="tags"></div><div class="post-nav"><a class="next" href="/2026/05/26/01-30C%E8%AF%AD%E8%A8%8005_%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5/">滴水逆向--01-30 C语言05_循环语句</a></div><div class="nofancybox" id="minivaline-container"></div><script src="https://unpkg.com/minivaline/dist/MiniValine.min.js"></script><script>new MiniValine({
   el: '#minivaline-container',
   appId: '',
