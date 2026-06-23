@@ -1,5 +1,5 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>滴水逆向--01-15 通用寄存器_内存读写 | PigaDino' Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="https://unpkg.com/normalize.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/pure-min.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="https://unpkg.com/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="https://unpkg.com/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="https://unpkg.com/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="https://unpkg.com/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">滴水逆向--01-15 通用寄存器_内存读写</h1><a id="logo" href="/.">PigaDino' Blog</a><p class="description">随便记点什么</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">滴水逆向--01-15 通用寄存器_内存读写</h1><div class="post-meta">2026-04-14<span> | </span><span class="category"><a href="/categories/%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91%E4%B8%89%E6%9C%9F/">滴水逆向三期</a></span></div><div class="post-content"><h1 id="通用寄存器"><a href="#通用寄存器" class="headerlink" title="通用寄存器"></a>通用寄存器</h1><p>32 位通用寄存器的指定用途如下：</p>
-<div class="table-container">
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>滴水逆向--01-15 通用寄存器_内存读写 | PigaDino' Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="https://unpkg.com/normalize.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/pure-min.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="https://unpkg.com/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="https://unpkg.com/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="https://unpkg.com/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="https://unpkg.com/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">滴水逆向--01-15 通用寄存器_内存读写</h1><a id="logo" href="/.">PigaDino' Blog</a><p class="description">随便记点什么</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">滴水逆向--01-15 通用寄存器_内存读写</h1><div class="post-meta">2026-04-14<span> | </span><span class="category"><a href="/categories/%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91%E4%B8%89%E6%9C%9F/">滴水逆向三期</a></span></div><div class="post-content"><h1>通用寄存器</h1>
+<p>32 位通用寄存器的指定用途如下：</p>
 <table>
 <thead>
 <tr>
@@ -60,9 +60,7 @@
 </tr>
 </tbody>
 </table>
-</div>
 <p>通用寄存器：</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -132,11 +130,11 @@
 </tr>
 </tbody>
 </table>
-</div>
-<p><img src="/images/01-15通用寄存器_内存读写/通用寄存器.png" alt=""></p>
+<p><img src="/images/01-15%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8_%E5%86%85%E5%AD%98%E8%AF%BB%E5%86%99/%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8.png" alt=""></p>
 <p>寄存器彼此之间不是独立的，大的包含小的（硬件发展历程）</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MOV EAX,0xAAAAAAAA</span><br><span class="line">MOV AX,0xBBBB</span><br><span class="line">MOV AH,0xCC</span><br><span class="line">MOV AL,0xDD</span><br><span class="line"></span><br><span class="line">EAX: -&gt; 0xAAAABBBB -&gt; 0xAAAACCBB -&gt; 0xAAAACCDD</span><br></pre></td></tr></table></figure>
-<h1 id="基础指令"><a href="#基础指令" class="headerlink" title="基础指令"></a>基础指令</h1><p>MOV 指令：</p>
+<h1>基础指令</h1>
+<p>MOV 指令：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">MOV r/m8, r8</span><br><span class="line">MOV r/m16, r16</span><br><span class="line">MOV r/m32, r32</span><br><span class="line">MOV r8, r/m8</span><br><span class="line">MOV r16, r/m16</span><br><span class="line">MOV r32, r/m32</span><br><span class="line">MOV r/m8, imm8</span><br><span class="line">MOV r/m16, imm16</span><br><span class="line">MOV r/m32, imm32</span><br><span class="line">r-通用寄存器；m-内存；imm-立即数；r8-8位通用寄存器；m8-8位内存；imm8-8位立即数</span><br></pre></td></tr></table></figure>
 <p>MOV 目标操作数, 源操作数</p>
 <p>作用：拷贝源操作数到目标操作数</p>
@@ -158,34 +156,44 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">XOR AL, imm8</span><br><span class="line">XOR AX, imm16</span><br><span class="line">XOR EAX, imm32</span><br><span class="line">XOR r/m8, imm8</span><br><span class="line">XOR r/m16,imm16</span><br><span class="line">XOR r/m32,imm32</span><br><span class="line">XOR r/m16, imm8</span><br><span class="line">XOR r/m32, imm8</span><br><span class="line">XOR r/m8, r8</span><br><span class="line">XOR r/m16, r16</span><br><span class="line">XOR r/m32, r32</span><br><span class="line">XOR r8, r/m8</span><br><span class="line">XOR r16, r/m16</span><br><span class="line">XOR r32, r/m32</span><br></pre></td></tr></table></figure>
 <p>NOT 指令：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NOT r/m8</span><br><span class="line">NOT r/m16</span><br><span class="line">NOT r/m32 </span><br></pre></td></tr></table></figure>
-<h1 id="内存读写"><a href="#内存读写" class="headerlink" title="内存读写"></a>内存读写</h1><p>寄存器与内存的区别：</p>
+<h1>内存读写</h1>
+<p>寄存器与内存的区别：</p>
 <ol>
-<li><p>寄存器位于 CPU 内部，执行速度快，但比较贵</p>
+<li>
+<p>寄存器位于 CPU 内部，执行速度快，但比较贵</p>
 </li>
-<li><p>内存速度相对较慢，但成本较低，所以可以做的很大</p>
+<li>
+<p>内存速度相对较慢，但成本较低，所以可以做的很大</p>
 </li>
-<li><p>寄存器和内存没有本质区别，都是用于存储数据的容器，都是定宽的</p>
+<li>
+<p>寄存器和内存没有本质区别，都是用于存储数据的容器，都是定宽的</p>
 </li>
-<li><p>寄存器常用的有 8 个：EAX、ECX、EDX、EBX、ESP、EBP、ESI、EDI</p>
+<li>
+<p>寄存器常用的有 8 个：EAX、ECX、EDX、EBX、ESP、EBP、ESI、EDI</p>
 </li>
-<li><p>计算机中的几个常用计量单位：BYTE WORD DWORD</p>
+<li>
+<p>计算机中的几个常用计量单位：BYTE WORD DWORD</p>
 <p>BYTE       字节 = 1 byte 8(BIT)</p>
 <p>WORD    字     = 16(BIT)</p>
 <p>DWORD 双字 = 32(BIT)</p>
 </li>
-<li><p>内存的数量特别庞大，无法每个内存单元都起一个名字，所以用编号来代替。我们称计算机 CPU 是 32 位或 64 位的，有很多书上说之所以叫 32 位计算机是因为寄存器的宽度是 32 位，是不准确的，因为还有很多寄存器是大于 32 位的。正确的解释为寻址范围为 32 位。</p>
+<li>
+<p>内存的数量特别庞大，无法每个内存单元都起一个名字，所以用编号来代替。我们称计算机 CPU 是 32 位或 64 位的，有很多书上说之所以叫 32 位计算机是因为寄存器的宽度是 32 位，是不准确的，因为还有很多寄存器是大于 32 位的。正确的解释为寻址范围为 32 位。</p>
 <p>内存编号范围：0x00000000～0xFFFFFFFF，内存的单位是字节，能存储的信息最多是 FFFFFFFF+1 字节，即 4G</p>
 </li>
-<li><p>只要是 32 位计算机，那么最多是别的内存为 4G，对吗？</p>
+<li>
+<p>只要是 32 位计算机，那么最多是别的内存为 4G，对吗？</p>
 <p>不一定，可以通过打补丁等形式拓展</p>
 </li>
 </ol>
 <p>内存：</p>
 <ol>
-<li><p>内存格式</p>
-<p><img src="/images/01-15通用寄存器_内存读写/内存格式.png" alt=""></p>
+<li>
+<p>内存格式</p>
+<p><img src="/images/01-15%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8_%E5%86%85%E5%AD%98%E8%AF%BB%E5%86%99/%E5%86%85%E5%AD%98%E6%A0%BC%E5%BC%8F.png" alt=""></p>
 </li>
-<li><p>从指定内存中写入/读取数据</p>
+<li>
+<p>从指定内存中写入/读取数据</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov dword ptr ds:[0x0012FF34], 0x12345678</span><br><span class="line">mov eax, dword ptr ds:[0x0012FF34]</span><br></pre></td></tr></table></figure>
 <p>dword：要读/写多少<mark>（<strong>涉及到内存读写的，一定要指定宽度</strong>）</mark>，byte = 1 字节，word = 2 字节，dword = 4 字节</p>
 <p>ptr：point，代表后面是一个指针（不是值，是地址）</p>
