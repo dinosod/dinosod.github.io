@@ -41,16 +41,12 @@ var searchFunc = function(path, search_id, content_id) {
                         if (data_content !== '') {
                             keywords.forEach(function (keyword, i) {
                                 index_title = data_title.indexOf(keyword);
-                                index_content = data_content.indexOf(keyword);
 
-                                if (index_title < 0 && index_content < 0) {
+                                if (index_title < 0) {
                                     isMatch = false;
                                 } else {
-                                    if (index_content < 0) {
-                                        index_content = 0;
-                                    }
                                     if (i == 0) {
-                                        first_occur = index_content;
+                                        first_occur = 20;
                                     }
                                     // content_index.push({index_content:index_content, keyword_len:keyword_len});
                                 }
