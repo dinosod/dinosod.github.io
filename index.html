@@ -7,14 +7,14 @@ html.dataset.dark = localStorage.dark || prefersDarkMode.matches;
 toggle.addEventListener('click', () => {
 localStorage.dark = !(html.dataset.dark == 'true');
 html.dataset.dark = localStorage.dark;
-});</script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">PigaDino' Blog</h1><a id="logo" href="/.">PigaDino' Blog</a><p class="description">随便记点什么</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"><a href="/post/02-26%E6%8C%87%E9%92%881.html">滴水逆向 02-26 指针1</a></h1><div class="post-meta">2026-07-16</div><div class="post-content">先抛去 * 是存地址的这个概念，看看这种类型最本质的特点
+});</script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">PigaDino' Blog</h1><a id="logo" href="/.">PigaDino' Blog</a><p class="description">随便记点什么</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"><a href="/post/02-26%E6%8C%87%E9%92%881.html">滴水逆向 02-26 指针1</a></h1><div class="post-meta">2026-07-16</div><div class="post-content">先抛去指针是地址的这个概念，看看这种类型最本质的特点
 “带*类型” 的特征探测
 
 
 宽度
 对于一个变量来说，最重要的一个特征就是数据的宽度，如何探测某个类型的变量的宽度？
 对于平时用的类型：
-123456789void Test() &#123;  char x;  short y;  int z;    x = 1;  y = 2;  z = 3;&#...</div><p class="readmore"><a href="/post/02-26%E6%8C%87%E9%92%881.html">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/post/02-06switch%E8%AF%AD%E5%8F%A5%E5%8F%8D%E6%B1%87%E7%BC%96.html">滴水逆向 02-06 switch语句反汇编</a></h1><div class="post-meta">2026-07-10</div><div class="post-content">之前的笔记都是边听边写的，这次边听边玩塞尔达呢。。。笔记都是课后整理的，可能会有遗落，会尽力回想
+123456789void Test() &#123;  char x;  short y;  int z;    x = 1;  y = 2;  z = 3;&#12...</div><p class="readmore"><a href="/post/02-26%E6%8C%87%E9%92%881.html">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/post/02-06switch%E8%AF%AD%E5%8F%A5%E5%8F%8D%E6%B1%87%E7%BC%96.html">滴水逆向 02-06 switch语句反汇编</a></h1><div class="post-meta">2026-07-10</div><div class="post-content">之前的笔记都是边听边写的，这次边听边玩塞尔达呢。。。笔记都是课后整理的，可能会有遗落，会尽力回想
 switch语句
 switch 语句是 if 语句的简写
 
