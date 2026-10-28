@@ -7,8 +7,7 @@ html.dataset.dark = localStorage.dark || prefersDarkMode.matches;
 toggle.addEventListener('click', () => {
 localStorage.dark = !(html.dataset.dark == 'true');
 html.dataset.dark = localStorage.dark;
-});</script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">滴水逆向 03-09 位运算</h1><a id="logo" href="/.">PigaDino' Blog</a><p class="description">随便记点什么</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">滴水逆向 03-09 位运算</h1><div class="post-meta">2026-10-13<span> | </span><span class="category"><a href="/categories/%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91%E4%B8%89%E6%9C%9F/">滴水逆向三期</a></span></div><div class="post-content"><h1>汇编中的移位指令</h1>
-<p>0、为什么要用位运算？</p>
+});</script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">滴水逆向 03-09 位运算</h1><a id="logo" href="/.">PigaDino' Blog</a><p class="description">随便记点什么</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">滴水逆向 03-09 位运算</h1><div class="post-meta">2026-10-13<span> | </span><span class="category"><a href="/categories/%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91%E4%B8%89%E6%9C%9F/">滴水逆向三期</a></span></div><div class="post-content"><h1 id="汇编中的移位指令"><a href="#汇编中的移位指令" class="headerlink" title="汇编中的移位指令"></a>汇编中的移位指令</h1><p>0、为什么要用位运算？</p>
 <ul>
 <li>位运算效率高</li>
 <li>计算机内部存储的都是二进制数，对他们进行运算的时候，需要使用位运算来得到结果</li>
@@ -19,33 +18,25 @@ html.dataset.dark = localStorage.dark;
 <li>指令格式：<code>SAL/SAR Reg/Mem, CL/Imm</code></li>
 <li>SAL（Shift Arithmetic Left）：算术左移，<strong>最高位的数移入到 CF 进位标志位中，最低位补 0</strong></li>
 <li>SAR（Shift Arithmetic Right）：算术右移，<strong>最高位的补目的操作数中的符号位（原来的最高位），最低位移入到 CF 进位标志位中</strong></li>
-<li>示例：<br>
-<img src="/images/03-09%E4%BD%8D%E8%BF%90%E7%AE%97/%E7%AE%97%E6%95%B0%E7%A7%BB%E4%BD%8D.png" alt="">如果是移动位数大于 1，就一个一个依次按照移动 1 位这样做</li>
+<li>示例：<br><img src="/images/03-09位运算/算数移位.png" alt="">如果是移动位数大于 1，就一个一个依次按照移动 1 位这样做</li>
 </ul>
 <p>2、逻辑移位指令</p>
 <ul>
 <li>指令格式：<code>SHL/SHR Reg/Mem, CL/Imm</code></li>
 <li>SHL（Shift Left）：逻辑左移，同算数左移，<strong>最高位的数移入到 CF 进位标志位中，最低位补 0</strong></li>
 <li>SHR（Shift Right）：逻辑右移，与算数右移有区别，<strong>最高位的补 0，最低位移入到 CF 进位标志位中</strong></li>
-<li>示例：<br>
-<img src="/images/03-09%E4%BD%8D%E8%BF%90%E7%AE%97/%E9%80%BB%E8%BE%91%E7%A7%BB%E4%BD%8D.png" alt=""><br>
-其实就是算数右移按有符号数解释，逻辑右移当作无符号数，所以补 0</li>
+<li>示例：<br><img src="/images/03-09位运算/逻辑移位.png" alt=""><br>其实就是算数右移按有符号数解释，逻辑右移当作无符号数，所以补 0</li>
 </ul>
 <p>3、循环移位</p>
 <ul>
-<li>
-<p>指令格式：<code>ROL r/m, i8  ROR r/m, CL</code></p>
+<li><p>指令格式：<code>ROL r/m, i8  ROR r/m, CL</code></p>
 </li>
-<li>
-<p>ROL（Rotate Left）：循环左移，<strong>最高位放到 CF 里，也补到最低位上</strong></p>
+<li><p>ROL（Rotate Left）：循环左移，<strong>最高位放到 CF 里，也补到最低位上</strong></p>
 </li>
-<li>
-<p>ROR（Rotate Right）：循环右移，<strong>最低位放到 CF 里，也补到最高位上</strong></p>
+<li><p>ROR（Rotate Right）：循环右移，<strong>最低位放到 CF 里，也补到最高位上</strong></p>
 </li>
-<li>
-<p>示例：</p>
-<p><img src="/images/03-09%E4%BD%8D%E8%BF%90%E7%AE%97/%E5%BE%AA%E7%8E%AF%E7%A7%BB%E4%BD%8D.png" alt=""><br>
-没啥好解释的但为了保持图片缩进一致我得写句话</p>
+<li><p>示例：</p>
+<p><img src="/images/03-09位运算/循环移位.png" alt=""><br>没啥好解释的但为了保持图片缩进一致我得写句话</p>
 </li>
 </ul>
 <p>4、带进位的循环移位指令</p>
@@ -53,48 +44,33 @@ html.dataset.dark = localStorage.dark;
 <li>指令格式：<code>RCL r/m, i8  RCR r/m, CL</code></li>
 <li>RCL（Rotate through Carry Left）：带进位循环左移，<strong>最高位放到 CF 里，原本的 CF 补到最低位上</strong></li>
 <li>RCR（Rotate through Carry Right）：带进位循环右移，<strong>最低位放到 CF 里，原本的 CF 补到最高位上</strong></li>
-<li>示例：<br>
-<img src="/images/03-09%E4%BD%8D%E8%BF%90%E7%AE%97/%E5%B8%A6%E8%BF%9B%E4%BD%8D%E7%9A%84%E5%BE%AA%E7%8E%AF%E7%A7%BB%E4%BD%8D.png" alt=""><br>
-正如其名，就是把 CF 位也拉进来一起循环了</li>
+<li>示例：<br><img src="/images/03-09位运算/带进位的循环移位.png" alt=""><br>正如其名，就是把 CF 位也拉进来一起循环了</li>
 </ul>
-<h1>C语言中的移位指令</h1>
-<p>1、与运算 <code>&amp;</code>、或运算 <code>|</code>、非运算 <code>~</code>、异或运算 <code>^</code></p>
+<h1 id="C语言中的移位指令"><a href="#C语言中的移位指令" class="headerlink" title="C语言中的移位指令"></a>C语言中的移位指令</h1><p>1、与运算 <code>&amp;</code>、或运算 <code>|</code>、非运算 <code>~</code>、异或运算 <code>^</code></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argc[])</span> &#123;</span><br><span class="line">  <span class="type">char</span> x = <span class="number">2</span>;</span><br><span class="line">  <span class="type">char</span> y = <span class="number">3</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, x&amp;y);  <span class="comment">//2</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, x|y);  <span class="comment">//3</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, ~x);  <span class="comment">//0xFD</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, x^y);  <span class="comment">//1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>计算方式就不多讲了，写成二进制数算就可以了</p>
 <p>2、移位运算 <code>&lt;&lt;</code>、<code>&gt;&gt;</code></p>
 <ul>
-<li>
-<p>左移运算</p>
+<li><p>左移运算</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> x = <span class="number">8</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%x\n&quot;</span>, x&lt;&lt;<span class="number">1</span>);  <span class="comment">//0x10</span></span><br><span class="line"></span><br><span class="line"><span class="type">unsigned</span> <span class="type">int</span> x = <span class="number">8</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%x\n&quot;</span>, x&lt;&lt;<span class="number">1</span>);  <span class="comment">//0x10</span></span><br></pre></td></tr></table></figure>
-<p><img src="/images/03-09%E4%BD%8D%E8%BF%90%E7%AE%97/%E5%B7%A6%E7%A7%BB%E6%9C%89%E7%AC%A6%E5%8F%B7.png" alt=""><br>
-<img src="/images/03-09%E4%BD%8D%E8%BF%90%E7%AE%97/%E5%B7%A6%E7%A7%BB%E6%97%A0%E7%AC%A6%E5%8F%B7.png" alt=""><br>
-左移运算里有符号和无符号没有区别，都是 <code>shl</code></p>
+<p><img src="/images/03-09位运算/左移有符号.png" alt=""><br><img src="/images/03-09位运算/左移无符号.png" alt=""><br>左移运算里有符号和无符号没有区别，都是 <code>shl</code></p>
 </li>
-<li>
-<p>右移运算</p>
+<li><p>右移运算</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> x = <span class="number">8</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%x\n&quot;</span>, x&gt;&gt;<span class="number">1</span>);  <span class="comment">//0x10</span></span><br><span class="line"></span><br><span class="line"><span class="type">unsigned</span> <span class="type">int</span> x = <span class="number">8</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%x\n&quot;</span>, x&gt;&gt;<span class="number">1</span>);  <span class="comment">//0x10</span></span><br></pre></td></tr></table></figure>
-<p><img src="/images/03-09%E4%BD%8D%E8%BF%90%E7%AE%97/%E5%8F%B3%E7%A7%BB%E6%9C%89%E7%AC%A6%E5%8F%B7.png" alt=""><br>
-<img src="/images/03-09%E4%BD%8D%E8%BF%90%E7%AE%97/%E5%8F%B3%E7%A7%BB%E6%97%A0%E7%AC%A6%E5%8F%B7.png" alt=""><br>
-有符号的是 <code>sar</code> 算数右移，无符号是 <code>shr</code> 逻辑右移</p>
+<p><img src="/images/03-09位运算/右移有符号.png" alt=""><br><img src="/images/03-09位运算/右移无符号.png" alt=""><br>有符号的是 <code>sar</code> 算数右移，无符号是 <code>shr</code> 逻辑右移</p>
 </li>
 </ul>
-<h1>课后作业</h1>
-<ol>
-<li>
-<p>定义一个 unsiged char 类型，通过程序依次为第 3、5、7 位赋值（每一位单独赋），赋值时不能影响到其它位原来的值（使用位操作指令、比如：&amp; | ! ^ &lt;&lt; &gt;&gt;等）<br>
-可能是脑子不太灵光吧，也没听懂啥意思，一会说写函数一会又直接写表达式的，不管了就按我的理解做了</p>
+<h1 id="课后作业"><a href="#课后作业" class="headerlink" title="课后作业"></a>课后作业</h1><ol>
+<li><p>定义一个 unsiged char 类型，通过程序依次为第 3、5、7 位赋值（每一位单独赋），赋值时不能影响到其它位原来的值（使用位操作指令、比如：&amp; | ! ^ &lt;&lt; &gt;&gt;等）<br>可能是脑子不太灵光吧，也没听懂啥意思，一会说写函数一会又直接写表达式的，不管了就按我的理解做了</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc,<span class="type">char</span>* argv[])</span> &#123;</span><br><span class="line">  <span class="type">unsigned</span> <span class="type">char</span> a = <span class="number">0x32</span>;  <span class="comment">//0011 0010</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">//第三位置1</span></span><br><span class="line">  a = a | <span class="number">0x04</span>;  <span class="comment">//a: 0011 0110</span></span><br><span class="line">  <span class="comment">//第五位置0</span></span><br><span class="line">  a = a &amp; <span class="number">0x26</span>;  <span class="comment">//a: 0010 0110</span></span><br><span class="line">  <span class="comment">//第七位置1</span></span><br><span class="line">  a = a | <span class="number">0x60</span>;  <span class="comment">//a: 0110 0110</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>判断某个位的值是否为 1</p>
+<li><p>判断某个位的值是否为 1</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc,<span class="type">char</span>* argv[])</span> &#123;</span><br><span class="line">  <span class="type">unsigned</span> <span class="type">char</span> a = <span class="number">0x32</span>;  <span class="comment">//0011 0010</span></span><br><span class="line">  </span><br><span class="line">  <span class="type">bool</span> flag = <span class="number">0</span>；</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//假设判断第三位</span></span><br><span class="line">  <span class="keyword">if</span>((a &amp; <span class="number">0x04</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">    flag = <span class="number">0</span>;  <span class="comment">//不是</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    flag = <span class="number">1</span>;  <span class="comment">//是</span></span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>读取第 7、6、5 位的值，以十进制显示（unsigned）</p>
+<li><p>读取第 7、6、5 位的值，以十进制显示（unsigned）</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc,<span class="type">char</span>* argv[])</span>&#123;</span><br><span class="line">  <span class="type">unsigned</span> <span class="type">char</span> a = <span class="number">0x32</span>;  <span class="comment">//0011 0010</span></span><br><span class="line">  </span><br><span class="line">  a = a &amp; <span class="number">0x70</span>;  <span class="comment">//0x70: 0111 0000</span></span><br><span class="line">  a = a &gt;&gt; <span class="number">4</span>;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, a);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>用十六进制文本编辑器分别打开一个 <code>.exe、.dll、.sys、.txt、.doc、.jpg、.pdf</code> 等，将前四个字节写在下面</p>
+<li><p>用十六进制文本编辑器分别打开一个 <code>.exe、.dll、.sys、.txt、.doc、.jpg、.pdf</code> 等，将前四个字节写在下面</p>
 <ul>
 <li><code>.exe</code>：<code>4D 5A</code>（MZ）</li>
 <li><code>.dll</code>：<code>4D 5A</code></li>
@@ -105,10 +81,7 @@ html.dataset.dark = localStorage.dark;
 <li><code>.pdf</code>：<code>25 50</code></li>
 </ul>
 </li>
-<li>
-<p>将一个在十六进制编辑器中打开的 <code>.exe</code> 文件，拖拽到最后，观察文件中的大小和硬盘上的大小（下载一个WinHex）<br>
-<img src="/images/03-09%E4%BD%8D%E8%BF%90%E7%AE%97/hw.png" alt=""><br>
-这里还可以发现一个现象是占用空间比大小大，原因是占用空间指的是文件在磁盘上实际占用的字节数，而磁盘分配空间是以簇为单位的，即使文件只有 1 字节，也会占用一个簇，所以占用空间通常是簇大小的整数倍，也就自然比大小要大了</p>
+<li><p>将一个在十六进制编辑器中打开的 <code>.exe</code> 文件，拖拽到最后，观察文件中的大小和硬盘上的大小（下载一个WinHex）<br><img src="/images/03-09位运算/hw.png" alt=""><br>这里还可以发现一个现象是占用空间比大小大，原因是占用空间指的是文件在磁盘上实际占用的字节数，而磁盘分配空间是以簇为单位的，即使文件只有 1 字节，也会占用一个簇，所以占用空间通常是簇大小的整数倍，也就自然比大小要大了</p>
 </li>
 </ol>
 </div><div class="tags"></div><div class="post-nav"><a class="pre" href="/post/03-10%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D_%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99.html">滴水逆向 03-10 内存分配_文件读写</a><a class="next" href="/post/03-06%E6%8C%87%E9%92%888.html">滴水逆向 03-06 指针8</a></div><div class="nofancybox" id="minivaline-container"></div><script src="https://unpkg.com/minivaline/dist/MiniValine.min.js"></script><script>new MiniValine({
